@@ -3,100 +3,44 @@ title: "欢迎使用 Arisk"
 description: "专业的链上风险资金识别 AML 风控平台"
 ---
 
-## 什么是 Arisk？
+Arisk 帮助您识别链上风险资金，通过地址分析、资金流向查询和监控告警，为 AML 风控业务提供数据支持。
 
-Arisk 是一个全面的区块链交易风险分析平台，旨在帮助您识别、评估和缓解与链上活动相关的风险。
-
-<Card
-  title="快速开始"
-  icon="rocket"
-  href="/zh/api-reference/v2/endpoint/analysistasklist"
-  horizontal
->
-  通过我们的快速设置指南，开始分析区块链交易。
+<Card title="快速开始（V2）" icon="rocket" href="/zh/quickstart">
+  使用 API Key 创建分析任务、查询状态并获取结果。
 </Card>
 
-## 核心功能
-
-强大的工具确保您的区块链操作安全合规。
+## 按任务开始
 
 <Columns cols={2}>
-  <Card
-    title="实时风险评分"
-    icon="shield-check"
-    href="/zh/api-reference/v2/endpoint/analysistasklist"
-  >
-    使用 AI 驱动的算法即时评估交易风险等级。
-  </Card>
-  <Card
-    title="地址筛查"
-    icon="magnifying-glass"
-  >
-    根据全球制裁名单和黑名单筛查钱包地址。
-  </Card>
-  <Card
-    title="交易监控"
-    icon="chart-line"
-  >
-    跨多个区块链网络实时监控交易。
-  </Card>
-  <Card
-    title="交易追踪"
-    icon="file-certificate"
-  >
-    追踪并分析链上资金流向与交易路径。
-  </Card>
-</Columns>
-
-## 支持的区块链
-
-<Columns cols={3}>
-  <Card title="Ethereum" icon="ethereum" iconType="brands">
-    全面支持以太坊主网和测试网
-  </Card>
-  <Card title="BSC" icon="link">
-    币安智能链监控
-  </Card>
-  <Card title="Tron" icon="link">
-    TRON 网络交易筛查
-  </Card>
-</Columns>
-
-## 为什么选择 Arisk？
-
-<Columns cols={2}>
-  <Card
-    title="先进的 AI 检测"
-    icon="brain"
-  >
-    基于数百万交易训练的机器学习模型，检测可疑模式。
-  </Card>
-  <Card
-    title="全面的 API"
-    icon="code"
-  >
-    易于集成的 REST API，无缝对接现有系统。
-  </Card>
-  <Card
-    title="企业级安全"
-    icon="lock"
-  >
-    银行级加密和安全协议保护您的数据。
-  </Card>
-  <Card
-    title="7×24 支持"
-    icon="headset"
-  >
-    专业支持团队全天候待命。
-  </Card>
-</Columns>
-
-## 准备开始？
-
-<Card
-  title="查看 API 文档"
-  icon="book-open"
-  href="/zh/api-reference/v2/endpoint/analysistasklist"
->
-  探索我们全面的 API 参考和集成指南。
+<Card title="创建分析任务" icon="magnifying-glass" href="/zh/api-reference/v2/endpoint/analysistaskcreate">
+  提交地址，选择需要的分析指标。
 </Card>
+<Card title="查看分析结果" icon="chart-line" href="/zh/api-reference/v2/endpoint/analysistaskresultget">
+  读取地址概览、风险类型统计和资金流向。
+</Card>
+<Card title="添加监控地址" icon="shield-check" href="/zh/api-reference/v2/endpoint/monitoraddressesadd">
+  批量添加需要持续监控的地址。
+</Card>
+<Card title="查询监控告警" icon="bell" href="/zh/api-reference/v2/endpoint/monitoralertslist">
+  获取监控地址的告警记录。
+</Card>
+</Columns>
+
+## 链与代币参数
+
+V2 分析任务支持的 `chain` 值为 `ethereum`、`bsc`、`tron`，`token` 值为 `usdt`。请求时使用这些小写标识。
+
+## 继续集成
+
+<Columns cols={2}>
+<Card title="接收 Webhook" icon="bell" href="/zh/api-reference/v2/webhooks/overview">
+  了解推送结构、签名验证和消息处理。
+</Card>
+<Card title="使用 AI 阅读文档" icon="book-open" href="/zh/ai-tools">
+  将文档接入支持 MCP 的 AI 工具。
+</Card>
+</Columns>
+
+## API 版本
+
+本指南使用 V2。维护 V1 集成时，请在版本选择器中切换到 V1，并使用对应的接口参考。

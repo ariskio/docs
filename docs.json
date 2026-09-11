@@ -29,9 +29,11 @@
                 "tab": "API 参考",
                 "groups": [
                   {
-                    "group": "首页",
+                    "group": "开始使用",
                     "pages": [
-                      "zh/index"
+                      "zh/index",
+                      "zh/quickstart",
+                      "zh/ai-tools"
                     ]
                   },
                   {
@@ -72,6 +74,12 @@
                       "zh/api-reference/v2/webhooks/address-risk-change",
                       "zh/api-reference/v2/webhooks/transaction-detection"
                     ]
+                  },
+                  {
+                    "group": "更新日志",
+                    "pages": [
+                      "zh/updatelog/latest"
+                    ]
                   }
                 ]
               }
@@ -84,9 +92,11 @@
                 "tab": "API 参考",
                 "groups": [
                   {
-                    "group": "首页",
+                    "group": "开始使用",
                     "pages": [
-                      "zh/index"
+                      "zh/index",
+                      "zh/quickstart",
+                      "zh/ai-tools"
                     ]
                   },
                   {
@@ -132,7 +142,8 @@
               }
             ]
           }
-        ]
+        ],
+        "default": true
       },
       {
         "language": "zh-Hant",
@@ -145,9 +156,11 @@
                 "tab": "API 參考",
                 "groups": [
                   {
-                    "group": "首頁",
+                    "group": "開始使用",
                     "pages": [
-                      "zh-Hant/index"
+                      "zh-Hant/index",
+                      "zh-Hant/quickstart",
+                      "zh-Hant/ai-tools"
                     ]
                   },
                   {
@@ -187,6 +200,12 @@
                       "zh-Hant/api-reference/v2/webhooks/address-risk-change",
                       "zh-Hant/api-reference/v2/webhooks/transaction-detection"
                     ]
+                  },
+                  {
+                    "group": "更新日誌",
+                    "pages": [
+                      "zh-Hant/updatelog/latest"
+                    ]
                   }
                 ]
               }
@@ -199,9 +218,11 @@
                 "tab": "API 參考",
                 "groups": [
                   {
-                    "group": "首頁",
+                    "group": "開始使用",
                     "pages": [
-                      "zh-Hant/index"
+                      "zh-Hant/index",
+                      "zh-Hant/quickstart",
+                      "zh-Hant/ai-tools"
                     ]
                   },
                   {
@@ -260,9 +281,11 @@
                 "tab": "API Reference",
                 "groups": [
                   {
-                    "group": "Home",
+                    "group": "Get started",
                     "pages": [
-                      "en/index"
+                      "en/index",
+                      "en/quickstart",
+                      "en/ai-tools"
                     ]
                   },
                   {
@@ -303,6 +326,12 @@
                       "en/api-reference/v2/webhooks/address-risk-change",
                       "en/api-reference/v2/webhooks/transaction-detection"
                     ]
+                  },
+                  {
+                    "group": "Changelog",
+                    "pages": [
+                      "en/updatelog/latest"
+                    ]
                   }
                 ]
               }
@@ -315,9 +344,11 @@
                 "tab": "API Reference",
                 "groups": [
                   {
-                    "group": "Home",
+                    "group": "Get started",
                     "pages": [
-                      "en/index"
+                      "en/index",
+                      "en/quickstart",
+                      "en/ai-tools"
                     ]
                   },
                   {
@@ -389,5 +420,6 @@
       "telegram": "https://t.me/arisk_cs",
       "x": "https://x.com/Arisk_io"
     }
-  }
+  },
+  "description": "专业的链上风险资金识别 AML 风控平台"
 }

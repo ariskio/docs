@@ -3,100 +3,44 @@ title: "Welcome to Arisk"
 description: "Professional AML Risk Control Platform for On-chain High-risk Fund Identification"
 ---
 
-## What is Arisk?
+Arisk helps you identify high-risk on-chain funds. Use address analysis, fund flow data, and monitoring alerts to support your AML risk control workflows.
 
-Arisk is a comprehensive blockchain transaction risk analysis platform designed to help you identify, assess, and mitigate risks associated with on-chain activities.
-
-<Card
-  title="Quick Start"
-  icon="rocket"
-  href="/en/api-reference/v2/endpoint/analysistasklist"
-  horizontal
->
-  Start analyzing blockchain transactions with our quick setup guide.
+<Card title="Quickstart (V2)" icon="rocket" href="/en/quickstart">
+  Use your API key to create an analysis task, check its status, and retrieve results.
 </Card>
 
-## Core Features
-
-Powerful tools ensuring your blockchain operations are safe and compliant.
+## Start with a task
 
 <Columns cols={2}>
-  <Card
-    title="Real-time Risk Scoring"
-    icon="shield-check"
-    href="/en/api-reference/v2/endpoint/analysistasklist"
-  >
-    Instantly assess transaction risk levels using AI-driven algorithms.
-  </Card>
-  <Card
-    title="Address Screening"
-    icon="magnifying-glass"
-  >
-    Screen wallet addresses against global sanctions lists and blacklists.
-  </Card>
-  <Card
-    title="Transaction Monitoring"
-    icon="chart-line"
-  >
-    Monitor transactions across multiple blockchain networks in real-time.
-  </Card>
-  <Card
-    title="Transaction Tracking"
-    icon="file-certificate"
-  >
-    Track and analyze on-chain fund flows and transaction paths.
-  </Card>
-</Columns>
-
-## Supported Blockchains
-
-<Columns cols={3}>
-  <Card title="Ethereum" icon="ethereum" iconType="brands">
-    Full support for Ethereum mainnet and testnets
-  </Card>
-  <Card title="BSC" icon="link">
-    Binance Smart Chain monitoring
-  </Card>
-  <Card title="Tron" icon="link">
-    TRON network transaction screening
-  </Card>
-</Columns>
-
-## Why Choose Arisk?
-
-<Columns cols={2}>
-  <Card
-    title="Advanced AI Detection"
-    icon="brain"
-  >
-    Detect suspicious patterns with machine learning models trained on millions of transactions.
-  </Card>
-  <Card
-    title="Comprehensive API"
-    icon="code"
-  >
-    Easy-to-integrate REST API for seamless connection with existing systems.
-  </Card>
-  <Card
-    title="Enterprise-grade Security"
-    icon="lock"
-  >
-    Bank-grade encryption and security protocols protecting your data.
-  </Card>
-  <Card
-    title="24/7 Support"
-    icon="headset"
-  >
-    Dedicated support team available around the clock.
-  </Card>
-</Columns>
-
-## Ready to Start?
-
-<Card
-  title="View API Documentation"
-  icon="book-open"
-  href="/en/api-reference/v2/endpoint/analysistasklist"
->
-  Explore our comprehensive API reference and integration guides.
+<Card title="Create an analysis task" icon="magnifying-glass" href="/en/api-reference/v2/endpoint/analysistaskcreate">
+  Submit an address and select analysis metrics.
 </Card>
+<Card title="Read analysis results" icon="chart-line" href="/en/api-reference/v2/endpoint/analysistaskresultget">
+  Retrieve address overview, risk type statistics, and fund flows.
+</Card>
+<Card title="Add monitored addresses" icon="shield-check" href="/en/api-reference/v2/endpoint/monitoraddressesadd">
+  Add multiple addresses for ongoing monitoring.
+</Card>
+<Card title="List monitoring alerts" icon="bell" href="/en/api-reference/v2/endpoint/monitoralertslist">
+  Retrieve alert records for monitored addresses.
+</Card>
+</Columns>
+
+## Chain and token parameters
+
+V2 analysis tasks accept `ethereum`, `bsc`, and `tron` for `chain`, and `usdt` for `token`. Use these lowercase identifiers in requests.
+
+## Continue your integration
+
+<Columns cols={2}>
+<Card title="Receive webhooks" icon="bell" href="/en/api-reference/v2/webhooks/overview">
+  Learn about payloads, signature verification, and message handling.
+</Card>
+<Card title="Read docs with AI" icon="book-open" href="/en/ai-tools">
+  Connect the documentation to an AI tool that supports MCP.
+</Card>
+</Columns>
+
+## API versions
+
+This guide uses V2. To maintain a V1 integration, select V1 in the version selector and use its API reference.

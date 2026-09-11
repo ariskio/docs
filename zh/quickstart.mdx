@@ -1,204 +1,74 @@
 ---
-title: "入门指南"
-description: "5 分钟内开始使用 Arisk"
+title: "快速开始（V2）"
+description: "使用 API Key 创建分析任务、查询状态并获取结果。"
 ---
 
-## 获取 API 密钥
+本指南使用 V2。维护 V1 集成时，请在版本选择器中切换到 V1，并使用对应的接口参考。
 
-要开始使用 Arisk，您需要一个 API 密钥。
+## 1. 准备 API Key
 
-<Steps>
-  <Step title="创建账户">
-    访问 [api-key](https://arisk.io/console/api-key) 并注册免费账户。
-  </Step>
-  
-  <Step title="生成 API 密钥">
-    导航到 **设置 > API 密钥** 并点击"创建新密钥"。请安全保存此密钥 - 您将无法再次查看。
-  </Step>
-  
-  <Step title="设置身份验证">
-    在所有请求中使用 `X-API-Key` 头包含您的 API 密钥：
-    
-    ```bash
-    curl https://api.arisk.com/v1/analyze \
-      -H "X-API-Key: YOUR_API_KEY"
-    ```
-  </Step>
-</Steps>
+准备已在 Arisk 控制台创建的 API Key，并在终端设置环境变量。需要帮助时，联系 [Arisk 支持](https://t.me/arisk_cs)。
 
-## 第一次风险分析
-
-让我们分析一个钱包地址以评估其风险等级。
-
-### 分析钱包地址
-
-<CodeGroup>
-
-```bash cURL
-curl -X POST https://api.arisk.com/v1/analyze/address \
-  -H "X-API-Key: YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
-    "chain": "ethereum"
-  }'
-```
-
-```javascript JavaScript
-const response = await fetch('https://api.arisk.com/v1/analyze/address', {
-  method: 'POST',
-  headers: {
-    'X-API-Key': 'YOUR_API_KEY',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    address: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
-    chain: 'ethereum'
-  })
-});
-
-const data = await response.json();
-console.log(data);
-```
-
-```python Python
-import requests
-
-url = "https://api.arisk.com/v1/analyze/address"
-headers = {
-    "X-API-Key": "YOUR_API_KEY",
-    "Content-Type": "application/json"
-}
-payload = {
-    "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
-    "chain": "ethereum"
-}
-
-response = requests.post(url, json=payload, headers=headers)
-print(response.json())
-```
-
-```go Go
-package main
-
-import (
-    "bytes"
-    "encoding/json"
-    "net/http"
-    "fmt"
-)
-
-func main() {
-    url := "https://api.arisk.com/v1/analyze/address"
-    
-    payload := map[string]string{
-        "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
-        "chain": "ethereum",
-    }
-    
-    jsonData, _ := json.Marshal(payload)
-    req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
-    req.Header.Set("X-API-Key", "YOUR_API_KEY")
-    req.Header.Set("Content-Type", "application/json")
-    
-    client := &http.Client{}
-    resp, _ := client.Do(req)
-    defer resp.Body.Close()
-}
-```
-
-</CodeGroup>
-
-### 响应示例
-
-```json
-{
-  "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
-  "chain": "ethereum",
-  "risk_score": 23,
-  "risk_level": "low",
-  "categories": {
-    "sanctions": false,
-    "fraud": false,
-    "mixer": false,
-    "theft": false
-  },
-  "tags": ["exchange", "verified"],
-  "first_seen": "2020-03-15T10:30:00Z",
-  "last_active": "2024-12-08T15:45:22Z",
-  "total_transactions": 15847,
-  "total_volume_usd": 12500000.50
-}
-```
-
-## 理解风险评分
-
-Arisk 为每个地址分配 **0 到 100** 的风险评分：
-
-| 风险评分 | 风险等级 | 描述 |
-|---------|---------|------|
-| 0-20 | 🟢 **低风险** | 合法活动，风险低 |
-| 21-40 | 🟡 **中等风险** | 检测到一些可疑模式 |
-| 41-70 | 🟠 **高风险** | 存在重大风险指标 |
-| 71-100 | 🔴 **极高风险** | 已知恶意或受制裁实体 |
-
-<Warning>
-在继续交易之前，请务必手动审查 **极高** 和 **高** 风险地址。
-</Warning>
-
-## 监控交易
-
-实时交易监控可帮助您在可疑活动发生时立即发现。
-
-```javascript
-// 监控特定地址
-const response = await fetch('https://api.arisk.com/v1/monitor/create', {
-  method: 'POST',
-  headers: {
-    'X-API-Key': 'YOUR_API_KEY',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    address: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
-    chain: 'ethereum',
-    webhook_url: 'https://your-app.com/webhook'
-  })
-});
+```bash
+export ARISK_API_KEY="YOUR_API_KEY"
+export ARISK_API_BASE="https://api.arisk.io"
 ```
 
 <Note>
-每当被监控地址发送或接收资金时，您将收到实时 Webhook 通知。
+在服务端使用 API Key，不要将它放入公开仓库、前端代码或发送给 AI 工具。
 </Note>
 
-## 下一步
+## 2. 创建分析任务
 
-<Columns cols={2}>
-  <Card
-    title="探索 API 参考"
-    icon="book"
-    href="/zh/api-reference/introduction"
-  >
-    了解所有可用的端点和功能。
-  </Card>
-  <Card
-    title="开发设置"
-    icon="code"
-    href="/zh/development"
-  >
-    设置本地开发环境。
-  </Card>
-  <Card
-    title="最佳实践"
-    icon="lightbulb"
-    href="/zh/essentials/settings"
-  >
-    学习安全最佳实践和优化技巧。
-  </Card>
-  <Card
-    title="加入社区"
-    icon="users"
-    href="https://discord.gg/arisk"
-  >
-    从我们的社区和团队获得帮助。
-  </Card>
-</Columns>
+下面的请求分析一个 Ethereum 地址的 USDT 活动。`chain`、`token` 和 `address` 必填；可将 `address` 替换为您需要分析的地址。
+
+```bash
+curl --fail-with-body --request POST "$ARISK_API_BASE/v2/analysis/tasks" \
+  --header "X-API-Key: $ARISK_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "chain": "ethereum",
+    "token": "usdt",
+    "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+    "metrics": ["overview", "risk_type", "risk_address_total"]
+  }'
+```
+
+成功响应包含 `task_id`。将实际返回的值保存到环境变量，后续请求使用同一个任务 ID。
+
+```bash
+export ARISK_TASK_ID="TASK_ID_FROM_RESPONSE"
+```
+
+## 3. 查询任务状态
+
+```bash
+curl --fail-with-body "$ARISK_API_BASE/v2/analysis/tasks/$ARISK_TASK_ID/status" \
+  --header "X-API-Key: $ARISK_API_KEY"
+```
+
+根据 `status` 决定下一步。等待中或处理中时，稍后再次查询；失败时检查 `message` 并停止等待。
+
+| 值 | 状态 |
+| --- | --- |
+| `0` | 等待中 |
+| `1` | 处理中 |
+| `2` | 已完成 |
+| `3` | 失败 |
+
+## 4. 获取分析结果
+
+当 `status` 为 `2` 时获取结果。响应的 `result` 对象包含分析数据；完整字段请查看[获取分析结果接口](/zh/api-reference/v2/endpoint/analysistaskresultget)。
+
+```bash
+curl --fail-with-body "$ARISK_API_BASE/v2/analysis/tasks/$ARISK_TASK_ID/result" \
+  --header "X-API-Key: $ARISK_API_KEY"
+```
+
+## 选择分析指标
+
+`metrics` 为可选字段，不传或传入空数组时返回全部支持的指标。示例只请求 `overview`、`risk_type` 和 `risk_address_total`。更多指标和筛选参数见[创建分析任务](/zh/api-reference/v2/endpoint/analysistaskcreate)。
+
+## 处理错误
+
+请求报错时查看响应中的 `code` 和 `message`，结合[通用错误码](/zh/api-reference/common-errors)和[分析错误码](/zh/api-reference/analysis-errors)定位原因。任务失败与 HTTP 请求失败需要分别处理。
