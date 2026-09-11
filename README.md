@@ -5,7 +5,7 @@ Arisk 链上风险资金识别 AML 风控平台的 Mintlify 文档，提供简�
 ## 内容结构
 
 - `docs.json`：站点配置、语言与版本导航。
-- `zh/`、`zh-Hant/`、`en/`：三种语言的首页、V2 快速开始和 AI 文档接入说明。
+- `zh/`、`zh-Hant/`、`en/`：三种语言的首页和 V2 快速开始。
 - `<语言>/api-reference/v1/`、`<语言>/api-reference/v2/`：OpenAPI 文件、接口页面与 Webhook 说明。
 - `<语言>/updatelog/`：产品发布记录。
 - `logo/`、`favicon.svg`：站点品牌素材。
@@ -38,7 +38,3 @@ CLI 安装与版本要求见 [Mintlify 官方文档](https://www.mintlify.com/do
 ## 部署
 
 推送到已连接的 `main` 分支后，由 Mintlify 自动部署。
-
-## AI 文档访问
-
-发布后的站点由 Mintlify 提供文档 MCP、`llms.txt` 和 `llms-full.txt`。通过页面菜单中的 **MCP** 获取文档 MCP 地址。文档 MCP 提供内容搜索与读取；业务 API 调用使用独立的 Arisk API Key。
