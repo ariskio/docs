@@ -1,0 +1,1484 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "默认模块",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "components": {
+    "schemas": {},
+    "responses": {},
+    "securitySchemes": {
+      "apikey-header-X-API-Key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.arisk.io"
+    }
+  ],
+  "security": [
+    {
+      "apikey-header-X-API-Key": []
+    }
+  ],
+  "tags": [],
+  "paths": {
+    "/v2/analysis/tasks": {
+      "get": {
+        "summary": "分析任务列表",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V2/AnalysisAnalysisTaskList",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码(从1开始，默认1)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "每页数量(默认20，最大100)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tasks": {
+                      "description": "任务列表",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "description": "查询地址",
+                            "type": "string",
+                            "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                          },
+                          "chain": {
+                            "description": "链标识",
+                            "type": "string",
+                            "example": "ethereum",
+                            "enum": [
+                              "tron",
+                              "bsc",
+                              "ethereum"
+                            ]
+                          },
+                          "completed_at": {
+                            "description": "分析完成时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "count_limit": {
+                            "description": "查询限制交易数(0 表示不限制)",
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "created_at": {
+                            "description": "创建时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "end_time": {
+                            "description": "查询结束时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "risk_level": {
+                            "description": "风险等级",
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "start_time": {
+                            "description": "查询起始时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "started_at": {
+                            "description": "分析开始时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "status": {
+                            "description": "任务状态",
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "task_id": {
+                            "description": "任务ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "token": {
+                            "description": "代币符号",
+                            "type": "string",
+                            "example": "usdt",
+                            "enum": [
+                              "usdt"
+                            ]
+                          },
+                          "updated_at": {
+                            "description": "更新时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "description": "总数",
+                      "type": "integer",
+                      "example": 100
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "apikey-header-X-API-Key": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "创建分析任务",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V2/AnalysisAnalysisTaskCreate",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "chain",
+                  "token",
+                  "address"
+                ],
+                "properties": {
+                  "address": {
+                    "description": "查询地址",
+                    "type": "string",
+                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                  },
+                  "chain": {
+                    "description": "链标识(如 tron/ethereum)",
+                    "type": "string",
+                    "example": "ethereum",
+                    "enum": [
+                      "tron",
+                      "bsc",
+                      "ethereum"
+                    ]
+                  },
+                  "count_limit": {
+                    "description": "交易数量限制(0 表示不限制)",
+                    "type": "integer",
+                    "example": 0
+                  },
+                  "end_time": {
+                    "description": "结束时间(RFC3339，选填，默认自动推导)",
+                    "type": "string",
+                    "example": "2023-10-27T10:00:00Z"
+                  },
+                  "metrics": {
+                    "description": "分析指标列表。若不传该字段或传空数组，则默认返回所有支持的指标。传入值必须在支持的指标列表内。",
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "overview",
+                        "txflow",
+                        "habit",
+                        "historical_balance",
+                        "risk_type",
+                        "top_transaction",
+                        "risk_address_total"
+                      ],
+                      "example": "overview"
+                    }
+                  },
+                  "start_time": {
+                    "description": "开始时间(RFC3339，选填，默认自动推导)",
+                    "type": "string",
+                    "example": "2023-10-27T10:00:00Z"
+                  },
+                  "token": {
+                    "description": "代币符号(如 usdt)",
+                    "type": "string",
+                    "example": "usdt",
+                    "enum": [
+                      "usdt"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "estimated_credits": {
+                      "description": "预估消耗积分",
+                      "type": "integer",
+                      "example": 10
+                    },
+                    "metrics": {
+                      "description": "实际分析的指标列表",
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "overview"
+                      }
+                    },
+                    "task_id": {
+                      "description": "任务ID",
+                      "type": "string",
+                      "example": "550e8400-e29b-41d4-a716-446655440000"
+                    },
+                    "tx_count": {
+                      "description": "交易数量",
+                      "type": "integer",
+                      "example": 100
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v2/analysis/tasks/{taskId}/result": {
+      "get": {
+        "summary": "获取分析任务结果",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V2/AnalysisAnalysisTaskResultGet",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "任务ID",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "description": "分析结果",
+                      "type": "object",
+                      "properties": {
+                        "address": {
+                          "description": "地址",
+                          "type": "string",
+                          "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                        },
+                        "chain": {
+                          "description": "链标识",
+                          "type": "string",
+                          "example": "ethereum",
+                          "enum": [
+                            "tron",
+                            "bsc",
+                            "ethereum"
+                          ]
+                        },
+                        "completed_at": {
+                          "description": "分析完成时间(RFC3339)",
+                          "type": "string",
+                          "example": "2023-10-27T10:00:00Z"
+                        },
+                        "count_limit": {
+                          "description": "查询限制交易数(0 表示不限制)",
+                          "type": "integer",
+                          "example": 0
+                        },
+                        "created_at": {
+                          "description": "创建时间(RFC3339)",
+                          "type": "string",
+                          "example": "2023-10-27T10:00:00Z"
+                        },
+                        "end_time": {
+                          "description": "查询结束时间(RFC3339)",
+                          "type": "string",
+                          "example": "2023-10-27T10:00:00Z"
+                        },
+                        "habit": {
+                          "description": "交易习惯",
+                          "type": "object",
+                          "properties": {
+                            "items": {
+                              "description": "列表",
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "hour": {
+                                    "description": "小时(0~23)",
+                                    "type": "string",
+                                    "example": "0"
+                                  },
+                                  "inflow": {
+                                    "description": "流入",
+                                    "type": "object",
+                                    "properties": {
+                                      "amount": {
+                                        "description": "金额",
+                                        "type": "string",
+                                        "example": "100.0"
+                                      },
+                                      "count": {
+                                        "description": "笔数",
+                                        "type": "integer",
+                                        "example": 10
+                                      }
+                                    }
+                                  },
+                                  "outflow": {
+                                    "description": "流出",
+                                    "type": "object",
+                                    "properties": {
+                                      "amount": {
+                                        "description": "金额",
+                                        "type": "string",
+                                        "example": "100.0"
+                                      },
+                                      "count": {
+                                        "description": "笔数",
+                                        "type": "integer",
+                                        "example": 10
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "historical_balance": {
+                          "description": "历史余额",
+                          "type": "object",
+                          "properties": {
+                            "items": {
+                              "description": "列表",
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "balance": {
+                                    "description": "余额",
+                                    "type": "string",
+                                    "example": "1000.0"
+                                  },
+                                  "date": {
+                                    "description": "日期(RFC3339)",
+                                    "type": "string",
+                                    "example": "2023-01-01"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "overview": {
+                          "description": "地址总览",
+                          "type": "object",
+                          "properties": {
+                            "active": {
+                              "description": "是否活跃",
+                              "type": "boolean",
+                              "example": true
+                            },
+                            "address": {
+                              "description": "地址",
+                              "type": "string",
+                              "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                            },
+                            "balance": {
+                              "description": "余额",
+                              "type": "string",
+                              "example": "100.0"
+                            },
+                            "balance_coin": {
+                              "description": "余额币种",
+                              "type": "string",
+                              "example": "USDT"
+                            },
+                            "exchange_name": {
+                              "description": "交易所名称",
+                              "type": "string",
+                              "example": "Binance"
+                            },
+                            "first_transfer_address": {
+                              "description": "首次转账对手地址",
+                              "type": "string",
+                              "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                            },
+                            "first_transfer_time": {
+                              "description": "首次转账时间(RFC3339)",
+                              "type": "string",
+                              "example": "2023-10-27T10:00:00Z"
+                            },
+                            "in_info": {
+                              "description": "流入信息",
+                              "type": "object",
+                              "properties": {
+                                "data": {
+                                  "description": "数据",
+                                  "type": "object",
+                                  "properties": {
+                                    "amount": {
+                                      "description": "金额",
+                                      "type": "string",
+                                      "example": "100.0"
+                                    },
+                                    "count": {
+                                      "description": "笔数",
+                                      "type": "integer",
+                                      "example": 10
+                                    }
+                                  }
+                                },
+                                "latest": {
+                                  "description": "最近一次时间(RFC3339)",
+                                  "type": "string",
+                                  "example": "2023-10-27T10:00:00Z"
+                                }
+                              }
+                            },
+                            "is_blocked": {
+                              "description": "是否被封禁",
+                              "type": "boolean",
+                              "example": true
+                            },
+                            "is_sanction": {
+                              "description": "是否被制裁",
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "out_info": {
+                              "description": "流出信息",
+                              "type": "object",
+                              "properties": {
+                                "data": {
+                                  "description": "数据",
+                                  "type": "object",
+                                  "properties": {
+                                    "amount": {
+                                      "description": "金额",
+                                      "type": "string",
+                                      "example": "50.0"
+                                    },
+                                    "count": {
+                                      "description": "笔数",
+                                      "type": "integer",
+                                      "example": 5
+                                    }
+                                  }
+                                },
+                                "latest": {
+                                  "description": "最近一次时间(RFC3339)",
+                                  "type": "string",
+                                  "example": "2023-10-27T10:00:00Z"
+                                }
+                              }
+                            },
+                            "total_info": {
+                              "description": "汇总信息",
+                              "type": "object",
+                              "properties": {
+                                "data": {
+                                  "description": "数据",
+                                  "type": "object",
+                                  "properties": {
+                                    "amount": {
+                                      "description": "金额",
+                                      "type": "string",
+                                      "example": "150.0"
+                                    },
+                                    "count": {
+                                      "description": "笔数",
+                                      "type": "integer",
+                                      "example": 15
+                                    }
+                                  }
+                                },
+                                "latest": {
+                                  "description": "最近一次时间(RFC3339)",
+                                  "type": "string",
+                                  "example": "2023-10-27T10:00:00Z"
+                                }
+                              }
+                            },
+                            "type": {
+                              "description": "地址类型",
+                              "type": "integer",
+                              "example": 1
+                            }
+                          }
+                        },
+                        "risk_address_data": {
+                          "description": "风险地址汇总",
+                          "type": "object",
+                          "properties": {
+                            "address_count": {
+                              "description": "地址数量",
+                              "type": "integer",
+                              "example": 5
+                            },
+                            "data": {
+                              "description": "数据",
+                              "type": "object",
+                              "properties": {
+                                "amount": {
+                                  "description": "金额",
+                                  "type": "string",
+                                  "example": "200.0"
+                                },
+                                "count": {
+                                  "description": "笔数",
+                                  "type": "integer",
+                                  "example": 20
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "risk_level": {
+                          "description": "风险等级",
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "risk_type": {
+                          "description": "风险类型统计",
+                          "type": "object",
+                          "properties": {
+                            "items": {
+                              "description": "列表",
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "data": {
+                                    "description": "数据",
+                                    "type": "object",
+                                    "properties": {
+                                      "amount": {
+                                        "description": "金额",
+                                        "type": "string",
+                                        "example": "100.0"
+                                      },
+                                      "count": {
+                                        "description": "笔数",
+                                        "type": "integer",
+                                        "example": 10
+                                      }
+                                    }
+                                  },
+                                  "type": {
+                                    "description": "风险类型",
+                                    "type": "string",
+                                    "example": "phishing"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "start_time": {
+                          "description": "查询开始时间(RFC3339)",
+                          "type": "string",
+                          "example": "2023-10-27T10:00:00Z"
+                        },
+                        "started_at": {
+                          "description": "分析开始时间(RFC3339)",
+                          "type": "string",
+                          "example": "2023-10-27T10:00:00Z"
+                        },
+                        "task_id": {
+                          "description": "任务ID",
+                          "type": "string",
+                          "example": "550e8400-e29b-41d4-a716-446655440000"
+                        },
+                        "token": {
+                          "description": "代币符号",
+                          "type": "string",
+                          "example": "usdt",
+                          "enum": [
+                            "usdt"
+                          ]
+                        },
+                        "top_transaction": {
+                          "description": "Top 交易对手",
+                          "type": "object",
+                          "properties": {
+                            "items": {
+                              "description": "列表",
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "counterparty_address": {
+                                    "description": "对手方地址",
+                                    "type": "string",
+                                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                                  },
+                                  "last_transaction_time": {
+                                    "description": "最近交易时间(RFC3339)",
+                                    "type": "string",
+                                    "example": "2023-10-27T10:00:00Z"
+                                  },
+                                  "own_address": {
+                                    "description": "本地址",
+                                    "type": "string",
+                                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                                  },
+                                  "total": {
+                                    "description": "汇总",
+                                    "type": "object",
+                                    "properties": {
+                                      "amount": {
+                                        "description": "金额",
+                                        "type": "string",
+                                        "example": "100.0"
+                                      },
+                                      "count": {
+                                        "description": "笔数",
+                                        "type": "integer",
+                                        "example": 10
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "tx_flow": {
+                          "description": "资金流向",
+                          "type": "object",
+                          "properties": {
+                            "links": {
+                              "description": "连接",
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "source": {
+                                    "description": "源节点",
+                                    "type": "string",
+                                    "example": "node1"
+                                  },
+                                  "target": {
+                                    "description": "目标节点",
+                                    "type": "string",
+                                    "example": "node2"
+                                  },
+                                  "value": {
+                                    "description": "金额",
+                                    "type": "string",
+                                    "example": "50.0"
+                                  }
+                                }
+                              }
+                            },
+                            "nodes": {
+                              "description": "节点",
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "description": "节点ID",
+                                    "type": "string",
+                                    "example": "node1"
+                                  },
+                                  "label": {
+                                    "description": "标签",
+                                    "type": "string",
+                                    "example": "Label"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v2/analysis/tasks/{taskId}/status": {
+      "get": {
+        "summary": "获取分析任务状态",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V2/AnalysisAnalysisTaskStatusGet",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "任务ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "created_at": {
+                      "description": "创建时间(RFC3339)",
+                      "type": "string",
+                      "example": "2023-10-27T10:00:00Z"
+                    },
+                    "message": {
+                      "description": "状态描述或错误信息",
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "metrics": {
+                      "description": "本次任务分析的指标列表",
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "risk"
+                      }
+                    },
+                    "status": {
+                      "description": "任务状态: 0-待处理, 1-处理中, 2-完成, 3-失败",
+                      "type": "integer",
+                      "example": 2
+                    },
+                    "updated_at": {
+                      "description": "更新时间(RFC3339)",
+                      "type": "string",
+                      "example": "2023-10-27T10:00:00Z"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v2/monitor/addresses": {
+      "get": {
+        "summary": "监控地址列表",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V2/MonitorMonitorAddressesList",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "query",
+            "description": "链名称",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "ethereum"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "代币符号",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "usdt"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态过滤: 1-启用 2-暂停（0 不筛选）",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "每页数量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "addresses": {
+                      "description": "地址列表",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "description": "地址",
+                            "type": "string",
+                            "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                          },
+                          "address_id": {
+                            "description": "地址 ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "alert_count": {
+                            "description": "已产生的告警数量",
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "chain": {
+                            "description": "链名称",
+                            "type": "string",
+                            "example": "ethereum",
+                            "enum": [
+                              "tron",
+                              "bsc",
+                              "ethereum"
+                            ]
+                          },
+                          "created_at": {
+                            "description": "创建时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "last_alert_at": {
+                            "description": "最近告警时间(RFC3339，可能为空)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "name": {
+                            "description": "名称（展示名）",
+                            "type": "string",
+                            "example": "Monitor1"
+                          },
+                          "status": {
+                            "description": "状态: 1-启用 2-暂停 3-删除",
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "token": {
+                            "description": "代币符号",
+                            "type": "string",
+                            "example": "usdt",
+                            "enum": [
+                              "usdt"
+                            ]
+                          },
+                          "updated_at": {
+                            "description": "更新时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "user_id": {
+                            "description": "创建用户",
+                            "type": "string",
+                            "example": "User1"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "description": "总数",
+                      "type": "integer",
+                      "example": 100
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "summary": "添加监控地址",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V2/MonitorMonitorAddressesAdd",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "chain",
+                  "token",
+                  "addresses"
+                ],
+                "properties": {
+                  "addresses": {
+                    "description": "地址列表",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "address"
+                      ],
+                      "properties": {
+                        "address": {
+                          "description": "地址",
+                          "type": "string",
+                          "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                        },
+                        "name": {
+                          "description": "名称",
+                          "type": "string",
+                          "example": "Monitor1"
+                        }
+                      }
+                    }
+                  },
+                  "chain": {
+                    "description": "链名称",
+                    "type": "string",
+                    "example": "ethereum",
+                    "enum": [
+                      "tron",
+                      "bsc",
+                      "ethereum"
+                    ]
+                  },
+                  "token": {
+                    "description": "代币符号",
+                    "type": "string",
+                    "example": "usdt",
+                    "enum": [
+                      "usdt"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "added": {
+                      "description": "成功添加数量",
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "addresses": {
+                      "description": "新建的地址实体",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "description": "地址",
+                            "type": "string",
+                            "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                          },
+                          "address_id": {
+                            "description": "地址 ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "alert_count": {
+                            "description": "已产生的告警数量",
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "chain": {
+                            "description": "链名称",
+                            "type": "string",
+                            "example": "ethereum",
+                            "enum": [
+                              "tron",
+                              "bsc",
+                              "ethereum"
+                            ]
+                          },
+                          "created_at": {
+                            "description": "创建时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "last_alert_at": {
+                            "description": "最近告警时间(RFC3339，可能为空)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "name": {
+                            "description": "名称（展示名）",
+                            "type": "string",
+                            "example": "Monitor1"
+                          },
+                          "status": {
+                            "description": "状态: 1-启用 2-暂停 3-删除",
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "token": {
+                            "description": "代币符号",
+                            "type": "string",
+                            "example": "usdt",
+                            "enum": [
+                              "usdt"
+                            ]
+                          },
+                          "updated_at": {
+                            "description": "更新时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "user_id": {
+                            "description": "创建用户",
+                            "type": "string",
+                            "example": "User1"
+                          }
+                        }
+                      }
+                    },
+                    "failed": {
+                      "description": "无效或失败的地址",
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "[]"
+                      }
+                    },
+                    "skipped": {
+                      "description": "跳过(已存在)数量",
+                      "type": "integer",
+                      "example": 0
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v2/monitor/addresses/delete": {
+      "post": {
+        "summary": "删除监控地址",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V2/MonitorMonitorAddressesDelete",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "address_ids"
+                ],
+                "properties": {
+                  "address_ids": {
+                    "description": "待删除的地址 ID 列表",
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "example": "550e8400-e29b-41d4-a716-446655440000"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deleted": {
+                      "description": "实际删除数量",
+                      "type": "integer",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v2/monitor/addresses/{addressId}/update": {
+      "post": {
+        "summary": "更新监控地址",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V2/MonitorMonitorAddressUpdate",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "addressId",
+            "in": "path",
+            "description": "地址 ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "新名称",
+                    "type": "string",
+                    "example": "MonitorRenamed"
+                  },
+                  "status": {
+                    "description": "新状态(1-启用 2-暂停，0 表示不修改)",
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "description": "是否更新成功",
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v2/monitor/alerts": {
+      "get": {
+        "summary": "获取监控告警列表",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V2/MonitorMonitorAlertsList",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "address_id",
+            "in": "query",
+            "description": "地址 ID 过滤",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            }
+          },
+          {
+            "name": "event_type",
+            "in": "query",
+            "description": "事件类型筛选",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "TRANSACTION_IN",
+                "TRANSACTION_OUT",
+                "TRANSACTION_RISK",
+                "ADDRESS_RISK_CHANGE"
+              ],
+              "example": "TRANSACTION_IN"
+            }
+          },
+          {
+            "name": "start_time",
+            "in": "query",
+            "description": "开始时间(RFC3339)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "2023-10-27T10:00:00Z"
+            }
+          },
+          {
+            "name": "end_time",
+            "in": "query",
+            "description": "结束时间(RFC3339)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "2023-10-27T10:00:00Z"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "example": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "每页数量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "example": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "alerts": {
+                      "description": "告警列表",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address_id": {
+                            "description": "关联地址 ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "alert_id": {
+                            "description": "告警 ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "chain": {
+                            "description": "链名称",
+                            "type": "string",
+                            "example": "ethereum",
+                            "enum": [
+                              "tron",
+                              "bsc",
+                              "ethereum"
+                            ]
+                          },
+                          "created_at": {
+                            "description": "创建时间(RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "details": {
+                            "description": "事件详情（结构化 JSON，无纯文案）",
+                            "type": "object",
+                            "properties": {
+                              "data": {
+                                "description": "事件数据（随 type 变化，详见上方 schema）",
+                                "type": "object",
+                                "additionalProperties": {},
+                                "properties": {}
+                              },
+                              "timestamp": {
+                                "description": "RFC3339",
+                                "type": "string",
+                                "example": "2023-10-27T10:00:00Z"
+                              },
+                              "type": {
+                                "description": "事件类型枚举",
+                                "type": "string",
+                                "example": "TRANSACTION_IN"
+                              }
+                            }
+                          },
+                          "event_id": {
+                            "description": "事件唯一标识",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "event_type": {
+                            "description": "事件类型",
+                            "type": "string",
+                            "enum": [
+                              "TRANSACTION_IN",
+                              "TRANSACTION_OUT",
+                              "TRANSACTION_RISK",
+                              "ADDRESS_RISK_CHANGE"
+                            ],
+                            "example": "TRANSACTION_IN"
+                          },
+                          "monitor_label": {
+                            "description": "监控地址标签",
+                            "type": "string",
+                            "example": "HighRisk"
+                          },
+                          "monitored_address": {
+                            "description": "监控地址",
+                            "type": "string",
+                            "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                          },
+                          "push_results": {
+                            "description": "渠道推送结果",
+                            "type": "object",
+                            "properties": {
+                              "email_status": {
+                                "description": "邮件推送状态: pending/sending/partial/success/failed/none",
+                                "type": "string",
+                                "example": "success"
+                              },
+                              "lark_status": {
+                                "description": "飞书推送状态",
+                                "type": "string",
+                                "example": "success"
+                              },
+                              "webhook_status": {
+                                "description": "Webhook 推送状态: pending/sending/partial/success/failed/none",
+                                "type": "string",
+                                "example": "success"
+                              },
+                              "wecom_status": {
+                                "description": "企业微信推送状态",
+                                "type": "string",
+                                "example": "success"
+                              }
+                            }
+                          },
+                          "token": {
+                            "description": "代币符号",
+                            "type": "string",
+                            "example": "usdt",
+                            "enum": [
+                              "usdt"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "description": "总数",
+                      "type": "integer",
+                      "example": 100
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+---
+title: "交易檢測"
+description: "當監控地址發生交易或發現風險交易時觸發的 Webhook 通知。"
+---
+
+Arisk 實時監測監控地址的交易活動。當監控地址發生流入/流出交易，或與已知風險地址產生互動時，會推送此告警。
+
+### 推送型別
+支援以下三種型別：
+- `transaction_risk`: 發現風險交易。
+- `transaction_in`: 發現普通流入交易。
+- `transaction_out`: 發現普通流出交易。
+
+### 請求引數
+
+| 引數名 | 型別 | 說明 |
+| :--- | :--- | :--- |
+| `type` | `string` | 推送型別：`transaction_risk`, `transaction_in`, `transaction_out` |
+| `timestamp` | `number` | 推送時的 Unix 時間戳（秒） |
+| `alert` | `object` | 告警詳情物件 |
+| `alert.id` | `string` | 告警唯一標識 ID |
+| `alert.chain` | `string` | 鏈型別 |
+| `alert.token` | `string` | 代幣符號 |
+| `alert.address` | `string` | 被監控的地址 |
+| `alert.counterparty` | `string` | 交易對手方地址 |
+| `alert.tx_hash` | `string` | 交易雜湊 |
+| `alert.amount` | `string` | 交易金額（字串形式） |
+| `alert.direction` | `number` | `0`: 流入監控地址, `1`: 流出監控地址 |
+| `alert.block_number` | `number` | 區塊高度 |
+| `alert.block_time` | `string` | 區塊時間（ISO 8601 格式） |
+| `alert.risk_types` | `array` | 對手方風險型別。**注意**：當型別為 `transaction_in` 或 `transaction_out` 時，此欄位為空陣列。 |
+
+### 請求體示例
+
+<CodeGroup>
+```json 風險交易 (transaction_risk)
+{
+  "type": "transaction_risk",
+  "timestamp": 1767514410,
+  "alert": {
+    "id": "019b8811-8e96-750c-9009-c195386aa19a",
+    "chain": "tron",
+    "token": "usdt",
+    "address": "TUjKn1jon1t3V1cM8hKNg9ERxswXipQ2KG",
+    "tx_hash": "00000000000000000000000000000000000000000000000000000000001e8481",
+    "counterparty": "TWWCH84pZJgxXtrVqbjm3614gnuWp2RGHD",
+    "amount": "500000000",
+    "direction": 0,
+    "block_number": 2000,
+    "block_time": "2026-01-04T08:13:30Z",
+    "risk_types": ["black_industry"]
+  }
+}
+```
+
+```json 普通流入 (transaction_in)
+{
+  "type": "transaction_in",
+  "timestamp": 1767514410,
+  "alert": {
+    "id": "019b8811-8e96-750c-9009-c195386aa19b",
+    "chain": "tron",
+    "token": "usdt",
+    "address": "TUjKn1jon1t3V1cM8hKNg9ERxswXipQ2KG",
+    "tx_hash": "00000000000000000000000000000000000000000000000000000000001e8482",
+    "counterparty": "TWWCH84pZJgxXtrVqbjm3614gnuWp2RGHE",
+    "amount": "100000000",
+    "direction": 0,
+    "block_number": 2001,
+    "block_time": "2026-01-04T08:15:30Z",
+  }
+}
+```
+</CodeGroup>

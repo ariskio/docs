@@ -1,0 +1,1665 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Default Module",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "components": {
+    "schemas": {
+      "open_V1_MonitorOpenV1MonitorAddressAddBody": {
+        "type": "object",
+        "required": [
+          "address",
+          "chain",
+          "token"
+        ],
+        "properties": {
+          "address": {
+            "description": "Address to monitor",
+            "type": "string",
+            "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+          },
+          "chain": {
+            "description": "Chain identifier",
+            "type": "string",
+            "example": "ethereum",
+            "enum": [
+              "tron",
+              "bsc",
+              "ethereum"
+            ]
+          },
+          "token": {
+            "description": "Token symbol",
+            "type": "string",
+            "example": "usdt",
+            "enum": [
+              "usdt"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {},
+    "securitySchemes": {
+      "apikey-header-X-API-Key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.arisk.io"
+    }
+  ],
+  "security": [
+    {
+      "apikey-header-X-API-Key": []
+    }
+  ],
+  "tags": [],
+  "paths": {
+    "/v1/monitor/address/add": {
+      "post": {
+        "summary": "Add Monitored Address",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/MonitorOpenV1MonitorAddressAdd",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/open_V1_MonitorOpenV1MonitorAddressAddBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "Address ID (UUID)",
+                      "type": "string",
+                      "example": "550e8400-e29b-41d4-a716-446655440000"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/monitor/address/list": {
+      "get": {
+        "summary": "List Monitored Addresses",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/MonitorOpenV1MonitorAddressList",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status filter, -1 means no filter",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "default": -1
+            }
+          },
+          {
+            "name": "chain",
+            "in": "query",
+            "description": "Chain filter",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "ethereum"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token filter",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "usdt"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Page size",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "addresses": {
+                      "description": "Address list",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "description": "地址",
+                            "type": "string",
+                            "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                          },
+                          "chain": {
+                            "description": "链标识",
+                            "type": "string",
+                            "example": "ethereum",
+                            "enum": [
+                              "tron",
+                              "bsc",
+                              "ethereum"
+                            ]
+                          },
+                          "created_at": {
+                            "description": "创建时间",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "id": {
+                            "description": "Address ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "status": {
+                            "description": "状态",
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "token": {
+                            "description": "代币符号",
+                            "type": "string",
+                            "example": "usdt",
+                            "enum": [
+                              "usdt"
+                            ]
+                          },
+                          "updated_at": {
+                            "description": "更新时间",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          }
+                        }
+                      }
+                    },
+                    "page": {
+                      "description": "Current page",
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "page_size": {
+                      "description": "Page size",
+                      "type": "integer",
+                      "example": 20
+                    },
+                    "total": {
+                      "description": "Total count",
+                      "type": "integer",
+                      "example": 100
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/monitor/address/remove": {
+      "post": {
+        "summary": "Remove Monitored Address",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/MonitorOpenV1MonitorAddressRemove",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/open_V1_MonitorOpenV1MonitorAddressAddBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "Address ID",
+                      "type": "string",
+                      "example": "550e8400-e29b-41d4-a716-446655440000"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/monitor/address/status/update": {
+      "post": {
+        "summary": "Update Monitored Address Status",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/MonitorOpenV1MonitorAddressStatusUpdate",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "address",
+                  "chain",
+                  "token",
+                  "status"
+                ],
+                "properties": {
+                  "address": {
+                    "description": "Address",
+                    "type": "string",
+                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                  },
+                  "chain": {
+                    "description": "Chain identifier",
+                    "type": "string",
+                    "example": "ethereum",
+                    "enum": [
+                      "tron",
+                      "bsc",
+                      "ethereum"
+                    ]
+                  },
+                  "status": {
+                    "description": "Status: 0=Disabled, 1=Enabled",
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "token": {
+                    "description": "Token symbol",
+                    "type": "string",
+                    "example": "usdt",
+                    "enum": [
+                      "usdt"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "Address ID",
+                      "type": "string",
+                      "example": "550e8400-e29b-41d4-a716-446655440000"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/monitor/alerts": {
+      "get": {
+        "summary": "List Alerts",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/MonitorOpenV1MonitorAlerts",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "monitor_type",
+            "in": "query",
+            "description": "Event type filter: normal_transaction/known_risk/risk_change",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "normal_transaction"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "每页数量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "alerts": {
+                      "description": "Alert list",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "amount": {
+                            "description": "交易金额",
+                            "type": "string",
+                            "example": "100.0"
+                          },
+                          "chain": {
+                            "description": "链标识",
+                            "type": "string",
+                            "example": "ethereum",
+                            "enum": [
+                              "tron",
+                              "bsc",
+                              "ethereum"
+                            ]
+                          },
+                          "counterparty_address": {
+                            "description": "对手方地址",
+                            "type": "string",
+                            "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                          },
+                          "created_at": {
+                            "description": "创建时间",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "details": {
+                            "description": "详情 JSON",
+                            "type": "string",
+                            "example": "{}"
+                          },
+                          "id": {
+                            "description": "告警 ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "monitor_type": {
+                            "description": "告警类型",
+                            "type": "string",
+                            "example": "normal_transaction"
+                          },
+                          "monitoring_address": {
+                            "description": "监控地址",
+                            "type": "string",
+                            "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                          },
+                          "monitoring_address_id": {
+                            "description": "监控地址 ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "token": {
+                            "description": "代币符号",
+                            "type": "string",
+                            "example": "usdt",
+                            "enum": [
+                              "usdt"
+                            ]
+                          },
+                          "tx_hash": {
+                            "description": "交易哈希",
+                            "type": "string",
+                            "example": "0x7b6134b17df88579d1a388b39417855b7662c1450207e4c6c06b744f47ddc5c4"
+                          },
+                          "user_id": {
+                            "description": "用户 ID（无数据则为空）",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          }
+                        }
+                      }
+                    },
+                    "page": {
+                      "description": "Current page",
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "page_size": {
+                      "description": "Page size",
+                      "type": "integer",
+                      "example": 20
+                    },
+                    "total": {
+                      "description": "Total count",
+                      "type": "string",
+                      "example": "100"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/monitor/config/default": {
+      "get": {
+        "summary": "Get Default Monitoring Configuration",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/MonitorOpenV1MonitorConfigGet",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "config": {
+                      "description": "Current configuration",
+                      "type": "object",
+                      "properties": {
+                        "detection": {
+                          "description": "Detection configuration",
+                          "type": "object",
+                          "properties": {
+                            "known_risk": {
+                              "description": "Subscribe to risk transactions",
+                              "type": "boolean",
+                              "example": true
+                            },
+                            "normal_transaction": {
+                              "description": "Subscribe to normal transactions",
+                              "type": "boolean",
+                              "example": true
+                            },
+                            "risk_change": {
+                              "description": "Subscribe to risk changes",
+                              "type": "boolean",
+                              "example": true
+                            }
+                          }
+                        },
+                        "notification": {
+                          "description": "通知配置",
+                          "type": "object",
+                          "properties": {
+                            "email": {
+                              "description": "邮件配置",
+                              "type": "object",
+                              "properties": {
+                                "enabled": {
+                                  "description": "Enabled",
+                                  "type": "boolean",
+                                  "example": true
+                                },
+                                "recipients": {
+                                  "description": "Recipients list",
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "example": "user@example.com"
+                                  }
+                                }
+                              }
+                            },
+                            "webhook": {
+                              "description": "Webhook 配置",
+                              "type": "object",
+                              "properties": {
+                                "auth_key": {
+                                  "description": "鉴权 Key（兼容字段）",
+                                  "type": "string",
+                                  "example": "ak_058e909ee5caa839da02c421142e2b0d90f917953bece13f4166a204669f5eb6"
+                                },
+                                "enabled": {
+                                  "description": "Enabled",
+                                  "type": "boolean",
+                                  "example": true
+                                },
+                                "urls": {
+                                  "description": "Webhook URLs",
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "example": "https://example.com/webhook"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "summary": "Set Default Monitoring Configuration",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/MonitorOpenV1MonitorConfigSet",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "config"
+                ],
+                "properties": {
+                  "config": {
+                    "description": "要更新的配置",
+                    "type": "object",
+                    "required": [
+                      "detection",
+                      "notification"
+                    ],
+                    "properties": {
+                      "detection": {
+                        "description": "Detection configuration",
+                        "type": "object",
+                        "properties": {
+                          "known_risk": {
+                            "description": "Subscribe to risk transactions",
+                            "type": "boolean",
+                            "example": true
+                          },
+                          "normal_transaction": {
+                            "description": "Subscribe to normal transactions",
+                            "type": "boolean",
+                            "example": true
+                          },
+                          "risk_change": {
+                            "description": "Subscribe to risk changes",
+                            "type": "boolean",
+                            "example": true
+                          }
+                        }
+                      },
+                      "notification": {
+                        "description": "通知配置",
+                        "type": "object",
+                        "required": [
+                          "webhook",
+                          "email"
+                        ],
+                        "properties": {
+                          "email": {
+                            "description": "邮件配置",
+                            "type": "object",
+                            "required": [
+                              "enabled",
+                              "recipients"
+                            ],
+                            "properties": {
+                              "enabled": {
+                                "description": "Enabled",
+                                "type": "boolean",
+                                "example": true
+                              },
+                              "recipients": {
+                                "description": "Recipients list",
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "example": "user@example.com"
+                                }
+                              }
+                            }
+                          },
+                          "webhook": {
+                            "description": "Webhook 配置",
+                            "type": "object",
+                            "required": [
+                              "enabled",
+                              "urls",
+                              "auth_key"
+                            ],
+                            "properties": {
+                              "auth_key": {
+                                "description": "Auth Key",
+                                "type": "string",
+                                "example": "ak_058e909ee5caa839da02c421142e2b0d90f917953bece13f4166a204669f5eb6"
+                              },
+                              "enabled": {
+                                "description": "Enabled",
+                                "type": "boolean",
+                                "example": true
+                              },
+                              "urls": {
+                                "description": "Webhook URLs",
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "example": "https://example.com/webhook"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "config": {
+                      "description": "更新后的配置",
+                      "type": "object",
+                      "properties": {
+                        "detection": {
+                          "description": "Detection configuration",
+                          "type": "object",
+                          "properties": {
+                            "known_risk": {
+                              "description": "Subscribe to risk transactions",
+                              "type": "boolean",
+                              "example": true
+                            },
+                            "normal_transaction": {
+                              "description": "Subscribe to normal transactions",
+                              "type": "boolean",
+                              "example": true
+                            },
+                            "risk_change": {
+                              "description": "Subscribe to risk changes",
+                              "type": "boolean",
+                              "example": true
+                            }
+                          }
+                        },
+                        "notification": {
+                          "description": "通知配置",
+                          "type": "object",
+                          "properties": {
+                            "email": {
+                              "description": "邮件配置",
+                              "type": "object",
+                              "properties": {
+                                "enabled": {
+                                  "description": "Enabled",
+                                  "type": "boolean",
+                                  "example": true
+                                },
+                                "recipients": {
+                                  "description": "Recipients list",
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "example": "user@example.com"
+                                  }
+                                }
+                              }
+                            },
+                            "webhook": {
+                              "description": "Webhook 配置",
+                              "type": "object",
+                              "properties": {
+                                "auth_key": {
+                                  "description": "Auth Key",
+                                  "type": "string",
+                                  "example": "ak_058e909ee5caa839da02c421142e2b0d90f917953bece13f4166a204669f5eb6"
+                                },
+                                "enabled": {
+                                  "description": "Enabled",
+                                  "type": "boolean",
+                                  "example": true
+                                },
+                                "urls": {
+                                  "description": "Webhook URLs",
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "example": "https://example.com/webhook"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/monitor/config/update": {
+      "post": {
+        "summary": "Update Monitoring Configuration",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/MonitorOpenV1MonitorConfigUpdate",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id"
+                ],
+                "properties": {
+                  "id": {
+                    "description": "监控地址 ID（兼容字段）",
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "监控地址 ID",
+                      "type": "string",
+                      "example": "550e8400-e29b-41d4-a716-446655440000"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/monitor/risk-change-alerts": {
+      "get": {
+        "summary": "List Risk Change Alerts",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/MonitorOpenV1RiskChangeAlerts",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "每页数量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "alerts": {
+                      "description": "告警列表",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "chain": {
+                            "description": "链标识",
+                            "type": "string",
+                            "example": "ethereum",
+                            "enum": [
+                              "tron",
+                              "bsc",
+                              "ethereum"
+                            ]
+                          },
+                          "created_at": {
+                            "description": "创建时间",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "id": {
+                            "description": "告警 ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "monitoring_address": {
+                            "description": "监控地址",
+                            "type": "string",
+                            "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                          },
+                          "monitoring_address_id": {
+                            "description": "监控地址 ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "risk_level": {
+                            "description": "风险等级",
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "risk_types": {
+                            "description": "风险类型",
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "phishing"
+                            }
+                          },
+                          "token": {
+                            "description": "代币符号",
+                            "type": "string",
+                            "example": "usdt",
+                            "enum": [
+                              "usdt"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "page": {
+                      "description": "当前页",
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "page_size": {
+                      "description": "每页大小",
+                      "type": "integer",
+                      "example": 20
+                    },
+                    "total": {
+                      "description": "总数",
+                      "type": "string",
+                      "example": "100"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/query/create": {
+      "post": {
+        "summary": "Create Query Task",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/QueryOpenV1QueryCreate",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "chain",
+                  "token",
+                  "address"
+                ],
+                "properties": {
+                  "address": {
+                    "description": "查询地址",
+                    "type": "string",
+                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                  },
+                  "chain": {
+                    "description": "链标识",
+                    "type": "string",
+                    "example": "ethereum",
+                    "enum": [
+                      "tron",
+                      "bsc",
+                      "ethereum"
+                    ]
+                  },
+                  "end_at": {
+                    "description": "截止时间（Unix 秒，可选）",
+                    "type": "integer",
+                    "example": 1698400800
+                  },
+                  "limit": {
+                    "description": "交易条数限制（可选，0 表示不限制）",
+                    "type": "integer",
+                    "example": 100
+                  },
+                  "start_at": {
+                    "description": "起始时间（Unix 秒，可选）",
+                    "type": "integer",
+                    "example": 1698314400
+                  },
+                  "token": {
+                    "description": "代币符号",
+                    "type": "string",
+                    "example": "usdt",
+                    "enum": [
+                      "usdt"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "query_hash": {
+                      "description": "任务唯一标识",
+                      "type": "string",
+                      "example": "550e8400-e29b-41d4-a716-446655440000"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/query/histories": {
+      "get": {
+        "summary": "List Query History",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/QueryOpenV1QueryHistories",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Items per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 20
+            }
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "description": "地址过滤（可选）",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "query_histories": {
+                      "description": "历史记录",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "description": "地址",
+                            "type": "string",
+                            "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                          },
+                          "api_key_id": {
+                            "description": "API Key ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "chain": {
+                            "description": "Chain identifier",
+                            "type": "string",
+                            "example": "ethereum",
+                            "enum": [
+                              "tron",
+                              "bsc",
+                              "ethereum"
+                            ]
+                          },
+                          "cost_quota": {
+                            "description": "Cost quota",
+                            "type": "integer",
+                            "example": 10
+                          },
+                          "created_at": {
+                            "description": "Creation time (RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "end_time": {
+                            "description": "End time (RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "id": {
+                            "description": "Task ID",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "query_hash": {
+                            "description": "Query hash",
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                          },
+                          "risk_level": {
+                            "description": "Risk level",
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "start_time": {
+                            "description": "Start time (RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "status": {
+                            "description": "Status",
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "token": {
+                            "description": "Token symbol",
+                            "type": "string",
+                            "example": "usdt",
+                            "enum": [
+                              "usdt"
+                            ]
+                          },
+                          "updated_at": {
+                            "description": "Update time (RFC3339)",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          }
+                        }
+                      }
+                    },
+                    "total_count": {
+                      "description": "Total count",
+                      "type": "integer",
+                      "example": 100
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/query/result": {
+      "get": {
+        "summary": "Get Query Result",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/QueryOpenV1QueryResult",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "query_hash",
+            "in": "query",
+            "description": "查询哈希（任务 ID）",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "address": {
+                      "description": "Queried address",
+                      "type": "string",
+                      "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    "chain": {
+                      "description": "Chain identifier",
+                      "type": "string",
+                      "example": "ethereum",
+                      "enum": [
+                        "tron",
+                        "bsc",
+                        "ethereum"
+                      ]
+                    },
+                    "created_at": {
+                      "description": "Creation time",
+                      "type": "string",
+                      "example": "2023-10-27T10:00:00Z"
+                    },
+                    "end_time": {
+                      "description": "End time",
+                      "type": "string",
+                      "example": "2023-10-27T10:00:00Z"
+                    },
+                    "habit": {
+                      "description": "交易习惯",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "hour": {
+                            "description": "Hour (0-23)",
+                            "type": "string",
+                            "example": "12"
+                          },
+                          "inflow_amount": {
+                            "description": "Inflow amount",
+                            "type": "string",
+                            "example": "100.00"
+                          },
+                          "inflow_count": {
+                            "description": "Inflow count",
+                            "type": "integer",
+                            "example": 5
+                          },
+                          "outflow_amount": {
+                            "description": "Outflow amount",
+                            "type": "string",
+                            "example": "50.00"
+                          },
+                          "outflow_count": {
+                            "description": "Outflow count",
+                            "type": "integer",
+                            "example": 2
+                          }
+                        }
+                      }
+                    },
+                    "historical_balance": {
+                      "description": "历史余额",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "balance": {
+                            "description": "Balance",
+                            "type": "string",
+                            "example": "1234.56"
+                          },
+                          "date": {
+                            "description": "Date",
+                            "type": "string",
+                            "example": "2023-10-27"
+                          }
+                        }
+                      }
+                    },
+                    "overview": {
+                      "description": "地址概览",
+                      "type": "object",
+                      "properties": {
+                        "active": {
+                          "description": "Is active",
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "address": {
+                          "description": "Address",
+                          "type": "string",
+                          "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                        },
+                        "balance": {
+                          "description": "Balance",
+                          "type": "string",
+                          "example": "1000.00"
+                        },
+                        "balance_coin": {
+                          "description": "Coin/Token",
+                          "type": "string",
+                          "example": "ETH"
+                        },
+                        "exchange_name": {
+                          "description": "Exchange name",
+                          "type": "string",
+                          "example": "Binance"
+                        },
+                        "first_transfer_address": {
+                          "description": "First transfer counterparty",
+                          "type": "string",
+                          "example": "0x..."
+                        },
+                        "first_transfer_time": {
+                          "description": "First transfer time",
+                          "type": "string",
+                          "example": "2023-01-01T00:00:00Z"
+                        },
+                        "in_info": {
+                          "description": "流入信息",
+                          "type": "object",
+                          "properties": {
+                            "amount": {
+                              "description": "Amount",
+                              "type": "string",
+                              "example": "5000.00"
+                            },
+                            "count": {
+                              "description": "Transaction count",
+                              "type": "integer",
+                              "example": 50
+                            },
+                            "latest": {
+                              "description": "Latest transaction time (RFC3339)",
+                              "type": "string",
+                              "example": "2023-10-27T10:00:00Z"
+                            }
+                          }
+                        },
+                        "is_frozen": {
+                          "description": "Is frozen",
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "out_info": {
+                          "description": "流出信息",
+                          "type": "object",
+                          "properties": {
+                            "amount": {
+                              "description": "金额",
+                              "type": "string",
+                              "example": "200.00"
+                            },
+                            "count": {
+                              "description": "交易笔数",
+                              "type": "integer",
+                              "example": 20
+                            },
+                            "latest": {
+                              "description": "最近交易时间(RFC3339)",
+                              "type": "string",
+                              "example": "2023-10-27T10:00:00Z"
+                            }
+                          }
+                        },
+                        "total_info": {
+                          "description": "汇总信息",
+                          "type": "object",
+                          "properties": {
+                            "amount": {
+                              "description": "金额",
+                              "type": "string",
+                              "example": "500.00"
+                            },
+                            "count": {
+                              "description": "交易笔数",
+                              "type": "integer",
+                              "example": 50
+                            },
+                            "latest": {
+                              "description": "最近交易时间(RFC3339)",
+                              "type": "string",
+                              "example": "2023-10-27T10:00:00Z"
+                            }
+                          }
+                        },
+                        "type": {
+                          "description": "地址类型",
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    },
+                    "query_hash": {
+                      "description": "查询哈希",
+                      "type": "string",
+                      "example": "550e8400-e29b-41d4-a716-446655440000"
+                    },
+                    "risk_address_total": {
+                      "description": "风险地址统计",
+                      "type": "object",
+                      "properties": {
+                        "address_count": {
+                          "description": "Risk address count",
+                          "type": "integer",
+                          "example": 5
+                        },
+                        "amount": {
+                          "description": "Total amount",
+                          "type": "string",
+                          "example": "100.00"
+                        },
+                        "amount_count": {
+                          "description": "Transaction count",
+                          "type": "integer",
+                          "example": 10
+                        }
+                      }
+                    },
+                    "risk_level": {
+                      "description": "Risk level",
+                      "type": "integer",
+                      "example": 3
+                    },
+                    "risk_type": {
+                      "description": "风险类型列表",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "amount": {
+                            "description": "Amount involved",
+                            "type": "string",
+                            "example": "50.00"
+                          },
+                          "count": {
+                            "description": "Transaction count",
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "type": {
+                            "description": "Risk type",
+                            "type": "string",
+                            "example": "phishing"
+                          }
+                        }
+                      }
+                    },
+                    "start_time": {
+                      "description": "起始时间",
+                      "type": "string",
+                      "example": "2023-10-27T10:00:00Z"
+                    },
+                    "token": {
+                      "description": "代币符号",
+                      "type": "string",
+                      "example": "usdt",
+                      "enum": [
+                        "usdt"
+                      ]
+                    },
+                    "top_transaction": {
+                      "description": "主要交易对手",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "counterparty_address": {
+                            "description": "Counterparty address",
+                            "type": "string",
+                            "example": "0x..."
+                          },
+                          "last_transaction_time": {
+                            "description": "Last transaction time",
+                            "type": "string",
+                            "example": "2023-10-27T10:00:00Z"
+                          },
+                          "own_address": {
+                            "description": "Own address",
+                            "type": "string",
+                            "example": "0x..."
+                          },
+                          "total_amount": {
+                            "description": "Total amount",
+                            "type": "string",
+                            "example": "1000.00"
+                          },
+                          "total_count": {
+                            "description": "Total count",
+                            "type": "integer",
+                            "example": 20
+                          }
+                        }
+                      }
+                    },
+                    "tx_flow": {
+                      "description": "资金流向",
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "边",
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "source": {
+                                "description": "Source node",
+                                "type": "string",
+                                "example": "node1"
+                              },
+                              "target": {
+                                "description": "Target node",
+                                "type": "string",
+                                "example": "node2"
+                              },
+                              "value": {
+                                "description": "Value",
+                                "type": "string",
+                                "example": "100.00"
+                              }
+                            }
+                          }
+                        },
+                        "nodes": {
+                          "description": "节点",
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "description": "Node ID",
+                                "type": "string",
+                                "example": "node1"
+                              },
+                              "label": {
+                                "description": "Label",
+                                "type": "string",
+                                "example": "Label1"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/v1/query/status": {
+      "get": {
+        "summary": "Get Query Status",
+        "deprecated": false,
+        "description": "",
+        "operationId": "open/V1/QueryOpenV1QueryStatus",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "query_hash",
+            "in": "query",
+            "description": "查询哈希（任务 ID）",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "550e8400-e29b-41d4-a716-446655440000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "type": "string",
+                      "example": "2023-10-27T10:00:00Z"
+                    },
+                    "message": {
+                      "description": "Message",
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "query_hash": {
+                      "description": "Query hash",
+                      "type": "string",
+                      "example": "550e8400-e29b-41d4-a716-446655440000"
+                    },
+                    "status": {
+                      "description": "Status",
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "status_text": {
+                      "description": "Status text",
+                      "type": "string",
+                      "example": "Completed"
+                    },
+                    "updated_at": {
+                      "description": "Update time",
+                      "type": "string",
+                      "example": "2023-10-27T10:00:00Z"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    }
+  }
+}

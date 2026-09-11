@@ -1,0 +1,56 @@
+---
+title: "General Error Codes"
+description: "General system-level business error codes and their meanings."
+icon: "triangle-exclamation"
+slug: "common-errors"
+---
+
+### Response Structure
+
+When an API call results in an error, a JSON response containing the following fields will be returned:
+
+- `code`: A 6-digit business error code.
+- `message`: A descriptive message for the error.
+
+Example:
+```json
+{
+  "code": "104001",
+  "message": "Invalid request parameters"
+}
+```
+
+
+### Error Code Format
+
+The first digit of the business error code represents the category or type of error:
+
+- **1**: Parameter or Input Error.
+- **2**: Business Logic Error.
+- **3**: System or Internal Error.
+
+---
+
+<ResponseField name="399101" type="Internal">
+  Internal error
+</ResponseField>
+
+<ResponseField name="399201" type="Unauthenticated">
+  Missing authorization header
+</ResponseField>
+
+<ResponseField name="399202" type="Unauthenticated">
+  Invalid authorization header format
+</ResponseField>
+
+<ResponseField name="399207" type="InvalidArgument">
+  Unsupported chain
+</ResponseField>
+
+<ResponseField name="399208" type="InvalidArgument">
+  Unsupported token
+</ResponseField>
+
+<ResponseField name="399209" type="InvalidArgument">
+  Unsupported chain or token
+</ResponseField>

@@ -1,0 +1,37 @@
+---
+title: "Latest Updates"
+description: "What's new in Arisk - December 2025"
+---
+
+# Version 2.0.0
+**Released: December 30, 2025**
+
+<Note>
+Arisk officially enters the V2 era! This update brings a brand-new API architecture evolution, achieving a major leap in interface efficiency, management convenience, and analysis depth.
+</Note>
+
+## 🚀 Arisk V2 API Now Available
+
+Version 2.0.0 is more than just a version increment; it's a complete reconstruction of our blockchain risk control and address monitoring capabilities.
+
+### 1. Deep RESTful Architecture Evolution
+V2 API adopts a resource-oriented design, fully introducing Path Parameters to make interface semantics clearer and more intuitive. Compared to the flattened paths of V1, the hierarchical structure of V2 allows developers to operate on specific resources more naturally, while also improving API extensibility and standardization.
+
+### 2. Efficiency Breakthrough in Bulk Operations
+For enterprise-level large-scale address management, V2 introduces brand-new bulk operation interfaces:
+- **Batch Add**: Supports adding multiple monitored addresses in a single request, significantly reducing API call frequency.
+- **Batch Management**: Clear monitoring lists efficiently through a unified deletion interface, simplifying maintenance workloads.
+These improvements drastically reduce network round-trips and system processing overhead during large-scale integration.
+
+### 3. All-New Asynchronous Analysis Task System
+We have completely upgraded the original query functionality into an "Analysis Task" engine:
+- **Enhanced Asynchronous Processing**: Supports more complex and higher concurrency analysis requests, with more stable and reliable task status queries.
+- **Deeper Assessment Dimensions**: V2 provides more detailed risk weight breakdowns and on-chain behavior profiling than V1, helping you identify potential risks more accurately.
+- **Task Linkage Tracking**: Every analysis task has a unique Task ID, facilitating historical lookups, auditing, and result persistence.
+
+### 4. Fine-grained Monitoring Configuration
+V2 optimizes the state management logic for address monitoring, supporting more flexible monitoring toggles (e.g., Enable/Pause). Meanwhile, we have optimized the alert filtering mechanism to ensure that alert notifications are more precise.
+
+### 5. Internationalization Experience Upgrade
+- **Comprehensive Documentation**: Completed the synchronized launch of full English and Chinese documentation for both V1 and V2 APIs.
+- **Standardized Configuration**: OpenAPI definition files now include the official production address `https://api.arisk.io`, supporting easier online debugging.

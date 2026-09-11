@@ -1,0 +1,59 @@
+---
+title: "Overview & Security"
+description: "Learn about Arisk V2 Webhook principles and how to verify the security of push messages."
+---
+
+Arisk V2 sends real-time HTTP POST requests via Webhooks to your configured server to notify you of risk level changes or risk transactions for monitored addresses.
+
+## Security Verification
+
+To ensure the authenticity and integrity of the messages, every Webhook request sent by Arisk includes a digital signature. We strongly recommend verifying the request before processing.
+
+### HTTP Headers
+
+Each Webhook request contains the following key headers:
+
+| Header | Description | Example |
+| :--- | :--- | :--- |
+| **X-Arisk-Signature** | RSA-PSS digital signature (Base64 encoded) | `aGVsbG8gd29ybGQ=...` |
+| **Authorization** | Bearer Token (only if `auth_key` is configured) | `Bearer your-secret-token` |
+
+### Verification Steps
+
+1.  **Verify Signature (Required)**
+    *   **Algorithm**: RSA-PSS with SHA-256
+    *   **Signed Content**: Raw JSON string of the request body
+    *   **Public Key**: Use the Arisk RSA public key below to verify the signature in `X-Arisk-Signature`.
+
+<CodeGroup>
+```text Public Key (PEM)
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy4SlJTdScP1YAtUqJ1Kz
+vB7isAMYd5oeAUqtraQ2UeLTz8EnPAVgob88NwxnXENd/GWkzas18bjkEbZuPcYA
+P+6cG5l077/zO8WCgUe+NheJUMYdLinvNovXB4oaPZ9EOSUPARyhupH+E5+Kr2Te
+nn+q0wsq62ge6oo705FpJSePbtAQLUnpQYe9GDty50nuXTZ3dZgIMpFkgPI49viY
+R0R72kC0l28BH/Ea9WxibKQuVngVMoK7/kLHNV93AEX5Rk1tUX+W/iKurhwxN1ei
+1N9rBj0d6fupntF8RgDL7vhMa6JtZEnhscTvGZH8bPa2LXMsXVxTdeSZL9+ElFxK
+awIDAQAB
+-----END PUBLIC KEY-----
+```
+</CodeGroup>
+
+2.  **Verify Authorization (Optional)**
+    If you set an `auth_key` in the Webhook configuration, Arisk will add the following header:
+    `Authorization: Bearer <your_auth_key>`
+
+---
+
+## Best Practices
+
+- **Fast Response (Required)**
+  Your server should return an HTTP 200 OK status code immediately upon receiving a Webhook request.
+  - **Response Data**: The response body can be empty or a simple JSON (e.g., `{"message": "received"}`). Our service only validates the HTTP status code and does not parse the response body content.
+  - **Timeout Risk**: Please avoid performing time-consuming operations in the synchronous request, otherwise, it may trigger the sender's timeout retry mechanism (default timeout is usually short).
+
+- **Asynchronous Processing (Recommended)**
+  We recommend adopting a **"acknowledge first, process later"** strategy. That is, after validating the signature and receiving the data, immediately return an HTTP 200 response, and then place time-consuming business logic (such as database writes, cascading notifications, etc.) into a background queue for asynchronous processing to ensure high availability of the interface.
+
+- **Idempotency Guarantee (Critical)**
+  Due to network fluctuations or retry mechanisms, you may receive duplicate Webhook notifications. Please ensure to use the `alert.id` field in the Payload as a unique key for idempotency checks in your business layer. 

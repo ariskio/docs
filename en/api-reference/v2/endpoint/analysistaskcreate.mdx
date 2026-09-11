@@ -1,0 +1,37 @@
+---
+openapi: /en/api-reference/v2/open-v2.json post /v2/analysis/tasks
+---
+
+### Field Description
+
+<ParamField body="metrics" type="string[]" optional>
+  Analysis metrics list. If not provided or an empty array is passed, all supported metrics are returned by default.
+  
+  **Validation Rules**:
+  *   Input values must be within the supported metrics list; otherwise, a `400 Invalid Params` error is returned.
+  *   Duplicate items in the array will be automatically removed, and the response results will maintain the order of the metrics in the request as much as possible.
+
+  <Expandable title="Supported Metric Enum Values">
+    <ResponseField name="overview" type="Metric">
+      **Address Overview** - Includes balance, address type (exchange/contract, etc.), first transfer time and counterparty, block/sanction status.
+    </ResponseField>
+    <ResponseField name="txflow" type="Metric">
+      **Fund Flow** - Includes topology data of fund outflows (nodes and links).
+    </ResponseField>
+    <ResponseField name="habit" type="Metric">
+      **Trading Habits** - Includes statistics of inflow/outflow amount and count distributed by hour (0-23).
+    </ResponseField>
+    <ResponseField name="historical_balance" type="Metric">
+      **Historical Balance** - Includes daily historical balance change curve data.
+    </ResponseField>
+    <ResponseField name="risk_type" type="Metric">
+      **Risk Type Stats** - Includes transaction summary categorized by risk label type (e.g., Scam, Hacker, Mixer, etc.).
+    </ResponseField>
+    <ResponseField name="top_transaction" type="Metric">
+      **Top Counterparties** - Includes list of counterparty addresses with the highest transaction amount or frequency.
+    </ResponseField>
+    <ResponseField name="risk_address_total" type="Metric">
+      **Risk Address Summary** - Includes total transaction amount, count, and address count involving known risk addresses.
+    </ResponseField>
+  </Expandable>
+</ParamField>

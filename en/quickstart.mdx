@@ -1,0 +1,210 @@
+---
+title: "Start Guide"
+description: "5 minutes to start using Arisk"
+---
+
+## Get API Key
+
+To start using Arisk, you need an API key.
+
+<Steps>
+  <Step title="Create Account">
+    Visit [api-key](https://arisk.io/console/api-key) and register for a free account.
+  </Step>
+  
+  <Step title="Generate API Key">
+    Navigate to **Settings > API Keys** and click "Create New Key". Please securely save this key - you will not be able to view it again.
+  </Step>
+  
+  <Step title="Set Authentication">
+    Include your API key in all requests using the `X-API-Key` header:
+    
+    ```bash
+    curl https://api.arisk.com/v1/analyze \
+      -H "X-API-Key: YOUR_API_KEY"
+    ```
+  </Step>
+</Steps>
+
+## First Risk Analysis
+
+Let's analyze a wallet address to evaluate its risk level.
+
+### Analyze Wallet Address
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST https://api.arisk.com/v1/analyze/address \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+    "chain": "ethereum"
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.arisk.com/v1/analyze/address', {
+  method: 'POST',
+  headers: {
+    'X-API-Key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    address: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
+    chain: 'ethereum'
+  })
+});
+
+const data = await response.json();
+console.log(data);
+```
+
+```python Python
+import requests
+
+url = "https://api.arisk.com/v1/analyze/address"
+headers = {
+    "X-API-Key": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+payload = {
+    "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+    "chain": "ethereum"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.json())
+```
+
+```go Go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "net/http"
+    "fmt"
+)
+
+func main() {
+    url := "https://api.arisk.com/v1/analyze/address"
+    
+    payload := map[string]string{
+        "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+        "chain": "ethereum",
+    }
+    
+    jsonData, _ := json.Marshal(payload)
+    req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+    req.Header.Set("X-API-Key", "YOUR_API_KEY")
+    req.Header.Set("Content-Type", "application/json")
+    
+    client := &http.Client{}
+    resp, _ := client.Do(req)
+    defer resp.Body.Close()
+}
+```
+
+</CodeGroup>
+
+### Response Example
+
+```json
+{
+  "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+  "chain": "ethereum",
+  "risk_score": 23,
+  "risk_level": "low",
+  "categories": {
+    "sanctions": false,
+    "fraud": false,
+    "mixer": false,
+    "theft": false
+  },
+  "tags": ["exchange", "verified"],
+  "first_seen": "2020-03-15T10:30:00Z",
+  "last_active": "2024-12-08T15:45:22Z",
+  "total_transactions": 15847,
+  "total_volume_usd": 12500000.50
+}
+```
+
+## Understanding Risk Scores
+
+Arisk assigns a **0 to 100** risk score to each address:
+
+| Risk Score | Risk Level | Description |
+|----------|----------|-------------|
+| 0-20 | 🟢 **Low** | Legal activities, low risk |
+| 21-40 | 🟡 **Medium** | Suspicious patterns detected |
+| 41-70 | 🟠 **High** | Major risk indicators present |
+| 71-100 | 🔴 **Extreme** | Known malicious or sanctioned entities |
+
+<Warning>
+Before proceeding with transactions, please manually review addresses with **Extreme** and **High** risk scores.
+</Warning>
+
+## Monitoring Transactions
+
+Real-time transaction monitoring helps you detect suspicious activities immediately.
+
+```javascript
+// 监控特定地址
+const response = await fetch('https://api.arisk.com/v1/monitor/create', {
+  method: 'POST',
+  headers: {
+    'X-API-Key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    address: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
+    chain: 'ethereum',
+    webhook_url: 'https://your-app.com/webhook'
+  })
+});
+```
+
+<Note>
+Every time the monitored address sends or receives funds, you will receive a real-time webhook notification.
+</Note>
+
+## Next Steps
+
+<Columns cols={2}>
+  <Card
+    title="Explore API Reference"
+    icon="book"
+    href="/zh/api-reference/introduction"
+  >
+    Learn about all available endpoints and features.
+  </Card>
+  <Card
+    title="Development Setup"
+    href="/en/api-reference/introduction"
+  >
+    Learn about all available endpoints and features.
+  </Card>
+  <Card
+    title="Development Setup"
+    icon="code"
+    href="/en/development"
+  >
+    Set up your local development environment.
+  </Card>
+  <Card
+    title="Best Practices"
+    icon="lightbulb"
+    href="/en/essentials/settings"
+  >
+    Learn security best practices and optimization tips.
+  </Card>
+  <Card
+    title="Join Community"
+    icon="users"
+    href="https://discord.gg/arisk"
+  >
+    Get help from our community and team.
+  </Card>
+</Columns>

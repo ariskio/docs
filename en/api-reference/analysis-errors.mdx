@@ -1,0 +1,60 @@
+---
+title: "Analysis Error Codes"
+description: "Business error codes related to analysis tasks and their meanings."
+icon: "triangle-exclamation"
+slug: "analysis-errors"
+---
+
+### Response Structure
+
+When an API call results in an error, a JSON response containing the following fields will be returned:
+
+- `code`: A 6-digit business error code.
+- `message`: A descriptive message for the error.
+
+Example:
+```json
+{
+  "code": "104001",
+  "message": "Invalid request parameters"
+}
+```
+
+
+### Error Code Format
+
+The first digit of the business error code represents the category or type of error:
+
+- **1**: Parameter or Input Error.
+- **2**: Business Logic Error.
+- **3**: System or Internal Error.
+
+---
+
+<ResponseField name="104001" type="InvalidArgument">
+  Invalid request parameters
+</ResponseField>
+
+<ResponseField name="204001" type="NotFound">
+  Analysis task not found
+</ResponseField>
+
+<ResponseField name="204002" type="NotFound">
+  Analysis result not found
+</ResponseField>
+
+<ResponseField name="204003" type="InvalidArgument">
+  Unsupported chain or token combination
+</ResponseField>
+
+<ResponseField name="204007" type="InvalidArgument">
+  Exchange address is not allowed for analysis
+</ResponseField>
+
+<ResponseField name="204008" type="NotFound">
+  No transaction data found
+</ResponseField>
+
+<ResponseField name="304003" type="Internal">
+  Internal processing error
+</ResponseField>

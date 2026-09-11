@@ -1,0 +1,76 @@
+---
+title: "Monitor Error Codes"
+description: "Business error codes related to address monitoring and notifications."
+icon: "triangle-exclamation"
+slug: "monitor-errors"
+---
+
+### Response Structure
+
+When an API call results in an error, a JSON response containing the following fields will be returned:
+
+- `code`: A 6-digit business error code.
+- `message`: A descriptive message for the error.
+
+Example:
+```json
+{
+  "code": "104001",
+  "message": "Invalid request parameters"
+}
+```
+
+
+### Error Code Format
+
+The first digit of the business error code represents the category or type of error:
+
+- **1**: Parameter or Input Error.
+- **2**: Business Logic Error.
+- **3**: System or Internal Error.
+
+---
+
+<ResponseField name="105002" type="InvalidArgument">
+  Chain or token is required
+</ResponseField>
+
+<ResponseField name="105003" type="InvalidArgument">
+  Invalid pagination parameter
+</ResponseField>
+
+<ResponseField name="105004" type="InvalidArgument">
+  Event type is invalid
+</ResponseField>
+
+<ResponseField name="105005" type="InvalidArgument">
+  Addresses cannot be empty
+</ResponseField>
+
+<ResponseField name="105006" type="InvalidArgument">
+  Too many addresses in a single request
+</ResponseField>
+
+<ResponseField name="205001" type="NotFound">
+  Monitor address not found
+</ResponseField>
+
+<ResponseField name="205002" type="NotFound">
+  Alert not found
+</ResponseField>
+
+<ResponseField name="205003" type="AlreadyExists">
+  Monitor address already exists
+</ResponseField>
+
+<ResponseField name="205010" type="NotFound">
+  No matched monitored address
+</ResponseField>
+
+<ResponseField name="205011" type="FailedPrecondition">
+  Credits insufficient for overage slots
+</ResponseField>
+
+<ResponseField name="305010" type="Unavailable">
+  System busy, please try again later
+</ResponseField>
