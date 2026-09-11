@@ -5,38 +5,20 @@ description: "专业的链上风险资金识别 AML 风控平台"
 
 Arisk 帮助您识别链上风险资金，通过地址分析、资金流向查询和监控告警，为 AML 风控业务提供数据支持。
 
-<Card title="快速开始（V2）" icon="rocket" href="/zh/quickstart">
-  使用 API Key 创建分析任务、查询状态并获取结果。
-</Card>
-
-## 按任务开始
-
 <Columns cols={2}>
-<Card title="创建分析任务" icon="magnifying-glass" href="/zh/api-reference/v2/endpoint/analysistaskcreate">
-  提交地址，选择需要的分析指标。
+<Card title="快速开始（V2）" href="/zh/quickstart">
+运行一次 V2 分析任务。
 </Card>
-<Card title="查看分析结果" icon="chart-line" href="/zh/api-reference/v2/endpoint/analysistaskresultget">
-  读取地址概览、风险类型统计和资金流向。
+<Card title="分析任务接入" href="/zh/guides/v2/analysis">
+了解分析状态与结果读取。
 </Card>
-<Card title="添加监控地址" icon="shield-check" href="/zh/api-reference/v2/endpoint/monitoraddressesadd">
-  批量添加需要持续监控的地址。
+<Card title="地址监控接入" href="/zh/guides/v2/monitoring">
+添加监控、接收事件并管理地址。
 </Card>
-<Card title="查询监控告警" icon="bell" href="/zh/api-reference/v2/endpoint/monitoralertslist">
-  获取监控地址的告警记录。
+<Card title="V1 文档" href="/zh/guides/v1/overview">
+维护已有 V1 集成。
+</Card>
+<Card title="更新日志" href="/zh/updatelog/overview">
+按日期查看产品发布记录。
 </Card>
 </Columns>
-
-## 链与代币参数
-
-V2 分析任务支持的 `chain` 值为 `ethereum`、`bsc`、`tron`，`token` 值为 `usdt`。请求时使用这些小写标识。
-
-## 继续集成
-
-<Card title="接收 Webhook" icon="bell" href="/zh/api-reference/v2/webhooks/overview">
-  了解推送结构、签名验证和消息处理。
-</Card>
-
-
-## API 版本
-
-本指南使用 V2。维护 V1 集成时，请在版本选择器中切换到 V1，并使用对应的接口参考。

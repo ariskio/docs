@@ -1,0 +1,31 @@
+---
+title: "地址監控接入"
+description: "新增監控地址、接收告警並管理監控記錄。"
+---
+
+本指南適用於 V2。地址監控用於持續接收地址事件；單次地址分析請使用[分析任務接入](/zh-Hant/guides/v2/analysis)。
+
+## 1. 添加監控地址
+
+呼叫[添加監控地址](/zh-Hant/api-reference/v2/endpoint/monitoraddressesadd)，提供 `chain`、`token` 和非空的 `addresses` 陣列。每項包含 `address`，可附帶 `name`。
+
+通過[監控地址列表](/zh-Hant/api-reference/v2/endpoint/monitoraddresseslist)核對記錄，保存後續更新或刪除所需的地址 ID。
+
+## 2. 接收事件
+
+準備 Webhook 接收服務，並確認您的 Webhook 配置指向該服務。接收流程見[接收與驗簽](/zh-Hant/api-reference/v2/webhooks/overview)。
+
+- [地址風險等級變動](/zh-Hant/api-reference/v2/webhooks/address-risk-change)：讀取前後風險等級與風險類型。
+- [交易檢測](/zh-Hant/api-reference/v2/webhooks/transaction-detection)：根據事件類型處理風險交易、普通流入或普通流出。
+
+使用 `alert.id` 去重，避免重複執行同一業務操作。也可使用[監控告警列表](/zh-Hant/api-reference/v2/endpoint/monitoralertslist)查詢記錄。
+
+## 3. 更新或移除監控
+
+使用[更新監控地址](/zh-Hant/api-reference/v2/endpoint/monitoraddressupdate)修改名稱或狀態：`1` 啟用、`2` 暫停、`0` 不修改狀態。
+
+不再需要監控時，向[刪除監控地址](/zh-Hant/api-reference/v2/endpoint/monitoraddressesdelete)提交 `address_ids`。這裡使用監控記錄 ID，不是鏈上地址字串。
+
+## 排查問題
+
+地址已存在時先查詢列表，確認是否可使用已有記錄；分頁或事件類型無效時核對介面允許的參數；額度不足時檢查帳號額度。完整含義見[監控錯誤碼](/zh-Hant/api-reference/monitor-errors)。

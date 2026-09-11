@@ -1,0 +1,42 @@
+---
+title: "Analysis workflow"
+description: "Create analysis tasks, handle status changes, and retrieve results."
+---
+
+This guide covers V2. For runnable requests, start with the [quickstart](/en/quickstart).
+
+## 1. Create and retain the task
+
+[Create an analysis task](/en/api-reference/v2/endpoint/analysistaskcreate) with `chain`, `token`, and `address`. Select `metrics` as needed; omitting it or passing an empty array returns all supported metrics.
+
+Save the returned `task_id` alongside your business record. Use that same ID for status and result requests.
+
+## 2. Act on task status
+
+[Get task status](/en/api-reference/v2/endpoint/analysistaskstatusget):
+
+| `status` | Next step |
+| --- | --- |
+| `0` Pending | Check again later |
+| `1` Processing | Wait; avoid creating the same task again |
+| `2` Completed | Retrieve the result |
+| `3` Failed | Inspect `message`, stop waiting, and investigate |
+
+Set a client-side waiting limit to avoid polling indefinitely. Reaching that limit does not mean the task failed; retain its ID to check later.
+
+## 3. Retrieve and store the result
+
+Once complete, [get the analysis result](/en/api-reference/v2/endpoint/analysistaskresultget) and read `result`. Handle data for the metrics you requested; do not assume a partial request includes every metric.
+
+Use the [task list](/en/api-reference/v2/endpoint/analysistasklist) to find existing tasks.
+
+## 4. Separate request errors from task failures
+
+For request errors, inspect `code` and `message`. For task status `3`, inspect the task failure information.
+
+- Invalid parameters: check the address, chain, token, and metrics before submitting again.
+- Task not found: check the task ID and account credentials.
+- Result not found: check that the task has completed.
+- Unsupported chain or token, disallowed exchange address, or no transaction data: address the reported cause rather than repeatedly submitting unchanged input.
+
+See [analysis error codes](/en/api-reference/analysis-errors) for definitions.

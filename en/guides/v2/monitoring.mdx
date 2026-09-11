@@ -1,0 +1,31 @@
+---
+title: "Monitoring workflow"
+description: "Add monitored addresses, receive alerts, and manage records."
+---
+
+This guide covers V2. Monitoring receives ongoing address events. For a one-time analysis, follow the [analysis workflow](/en/guides/v2/analysis).
+
+## 1. Add addresses
+
+[Add monitored addresses](/en/api-reference/v2/endpoint/monitoraddressesadd) with `chain`, `token`, and a nonempty `addresses` array. Each item contains `address` and an optional `name`.
+
+Check the [monitored address list](/en/api-reference/v2/endpoint/monitoraddresseslist) and retain the record IDs needed for updates and deletion.
+
+## 2. Receive events
+
+Prepare a Webhook receiver and confirm that your Webhook configuration points to it. Follow [receiving and verification](/en/api-reference/v2/webhooks/overview).
+
+- [Address risk level changes](/en/api-reference/v2/webhooks/address-risk-change): read risk levels and risk types.
+- [Transaction detection](/en/api-reference/v2/webhooks/transaction-detection): handle risk transactions, ordinary inflows, and ordinary outflows by event type.
+
+Deduplicate using `alert.id` to avoid executing the same business operation twice. You can also query the [alert list](/en/api-reference/v2/endpoint/monitoralertslist).
+
+## 3. Update or remove monitoring
+
+[Update an address](/en/api-reference/v2/endpoint/monitoraddressupdate) to change its name or status: `1` enables, `2` pauses, and `0` leaves the status unchanged.
+
+When monitoring is no longer needed, submit `address_ids` to [delete addresses](/en/api-reference/v2/endpoint/monitoraddressesdelete). These are monitoring record IDs, not on-chain address strings.
+
+## Troubleshoot
+
+If an address already exists, check the list for a usable record. For invalid pagination or event types, check the accepted parameters. For insufficient credits, check your account balance. See [monitoring error codes](/en/api-reference/monitor-errors).

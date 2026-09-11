@@ -1,0 +1,31 @@
+---
+title: "地址监控接入"
+description: "添加监控地址、接收告警并管理监控记录。"
+---
+
+本指南适用于 V2。地址监控用于持续接收地址事件；单次地址分析请使用[分析任务接入](/zh/guides/v2/analysis)。
+
+## 1. 添加监控地址
+
+调用[添加监控地址](/zh/api-reference/v2/endpoint/monitoraddressesadd)，提供 `chain`、`token` 和非空的 `addresses` 数组。每项包含 `address`，可附带 `name`。
+
+通过[监控地址列表](/zh/api-reference/v2/endpoint/monitoraddresseslist)核对记录，保存后续更新或删除所需的地址 ID。
+
+## 2. 接收事件
+
+准备 Webhook 接收服务，并确认您的 Webhook 配置指向该服务。接收流程见[接收与验签](/zh/api-reference/v2/webhooks/overview)。
+
+- [地址风险等级变动](/zh/api-reference/v2/webhooks/address-risk-change)：读取前后风险等级与风险类型。
+- [交易检测](/zh/api-reference/v2/webhooks/transaction-detection)：根据事件类型处理风险交易、普通流入或普通流出。
+
+使用 `alert.id` 去重，避免重复执行同一业务操作。也可使用[监控告警列表](/zh/api-reference/v2/endpoint/monitoralertslist)查询记录。
+
+## 3. 更新或移除监控
+
+使用[更新监控地址](/zh/api-reference/v2/endpoint/monitoraddressupdate)修改名称或状态：`1` 启用、`2` 暂停、`0` 不修改状态。
+
+不再需要监控时，向[删除监控地址](/zh/api-reference/v2/endpoint/monitoraddressesdelete)提交 `address_ids`。这里使用监控记录 ID，不是链上地址字符串。
+
+## 排查问题
+
+地址已存在时先查询列表，确认是否可使用已有记录；分页或事件类型无效时核对接口允许的参数；额度不足时检查账号额度。完整含义见[监控错误码](/zh/api-reference/monitor-errors)。

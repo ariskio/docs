@@ -20,19 +20,33 @@
     "languages": [
       {
         "language": "zh",
-        "versions": [
+        "default": true,
+        "tabs": [
           {
-            "version": "v2",
-            "default": true,
-            "tabs": [
+            "tab": "产品介绍",
+            "pages": [
+              "zh/index"
+            ]
+          },
+          {
+            "tab": "开发文档",
+            "versions": [
               {
-                "tab": "API 参考",
+                "version": "v2",
+                "default": true,
                 "groups": [
                   {
                     "group": "开始使用",
                     "pages": [
-                      "zh/index",
+                      "zh/guides/v2/overview",
                       "zh/quickstart"
+                    ]
+                  },
+                  {
+                    "group": "接入指南",
+                    "pages": [
+                      "zh/guides/v2/analysis",
+                      "zh/guides/v2/monitoring"
                     ]
                   },
                   {
@@ -42,8 +56,7 @@
                       "zh/api-reference/v2/endpoint/analysistasklist",
                       "zh/api-reference/v2/endpoint/analysistaskcreate",
                       "zh/api-reference/v2/endpoint/analysistaskstatusget",
-                      "zh/api-reference/v2/endpoint/analysistaskresultget",
-                      "zh/api-reference/analysis-errors"
+                      "zh/api-reference/v2/endpoint/analysistaskresultget"
                     ]
                   },
                   {
@@ -54,15 +67,7 @@
                       "zh/api-reference/v2/endpoint/monitoraddressesadd",
                       "zh/api-reference/v2/endpoint/monitoraddressupdate",
                       "zh/api-reference/v2/endpoint/monitoraddressesdelete",
-                      "zh/api-reference/v2/endpoint/monitoralertslist",
-                      "zh/api-reference/monitor-errors"
-                    ]
-                  },
-                  {
-                    "group": "通用说明",
-                    "icon": "book-open",
-                    "pages": [
-                      "zh/api-reference/common-errors"
+                      "zh/api-reference/v2/endpoint/monitoralertslist"
                     ]
                   },
                   {
@@ -75,26 +80,22 @@
                     ]
                   },
                   {
-                    "group": "更新日志",
+                    "group": "错误处理",
                     "pages": [
-                      "zh/updatelog/latest"
+                      "zh/api-reference/common-errors",
+                      "zh/api-reference/analysis-errors",
+                      "zh/api-reference/monitor-errors"
                     ]
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "version": "v1",
-            "tabs": [
+              },
               {
-                "tab": "API 参考",
+                "version": "v1",
                 "groups": [
                   {
                     "group": "开始使用",
                     "pages": [
-                      "zh/index",
-                      "zh/quickstart"
+                      "zh/guides/v1/overview"
                     ]
                   },
                   {
@@ -108,8 +109,7 @@
                       "zh/api-reference/v1/endpoint/riskchangealerts",
                       "zh/api-reference/v1/endpoint/monitorconfigget",
                       "zh/api-reference/v1/endpoint/monitorconfigset",
-                      "zh/api-reference/v1/endpoint/monitorconfigupdate",
-                      "zh/api-reference/monitor-errors"
+                      "zh/api-reference/v1/endpoint/monitorconfigupdate"
                     ]
                   },
                   {
@@ -118,14 +118,7 @@
                       "zh/api-reference/v1/endpoint/querycreate",
                       "zh/api-reference/v1/endpoint/queryhistories",
                       "zh/api-reference/v1/endpoint/queryresult",
-                      "zh/api-reference/v1/endpoint/querystatus",
-                      "zh/api-reference/analysis-errors"
-                    ]
-                  },
-                  {
-                    "group": "通用说明",
-                    "pages": [
-                      "zh/api-reference/common-errors"
+                      "zh/api-reference/v1/endpoint/querystatus"
                     ]
                   },
                   {
@@ -135,29 +128,55 @@
                       "zh/api-reference/v1/webhooks/risk-change",
                       "zh/api-reference/v1/webhooks/known-risk"
                     ]
+                  },
+                  {
+                    "group": "错误处理",
+                    "pages": [
+                      "zh/api-reference/common-errors",
+                      "zh/api-reference/analysis-errors",
+                      "zh/api-reference/monitor-errors"
+                    ]
                   }
                 ]
               }
             ]
+          },
+          {
+            "tab": "更新日志",
+            "pages": [
+              "zh/updatelog/overview"
+            ]
           }
-        ],
-        "default": true
+        ]
       },
       {
         "language": "zh-Hant",
-        "versions": [
+        "tabs": [
           {
-            "version": "v2",
-            "default": true,
-            "tabs": [
+            "tab": "產品介紹",
+            "pages": [
+              "zh-Hant/index"
+            ]
+          },
+          {
+            "tab": "開發文件",
+            "versions": [
               {
-                "tab": "API 參考",
+                "version": "v2",
+                "default": true,
                 "groups": [
                   {
                     "group": "開始使用",
                     "pages": [
-                      "zh-Hant/index",
+                      "zh-Hant/guides/v2/overview",
                       "zh-Hant/quickstart"
+                    ]
+                  },
+                  {
+                    "group": "接入指南",
+                    "pages": [
+                      "zh-Hant/guides/v2/analysis",
+                      "zh-Hant/guides/v2/monitoring"
                     ]
                   },
                   {
@@ -167,8 +186,7 @@
                       "zh-Hant/api-reference/v2/endpoint/analysistasklist",
                       "zh-Hant/api-reference/v2/endpoint/analysistaskcreate",
                       "zh-Hant/api-reference/v2/endpoint/analysistaskstatusget",
-                      "zh-Hant/api-reference/v2/endpoint/analysistaskresultget",
-                      "zh-Hant/api-reference/analysis-errors"
+                      "zh-Hant/api-reference/v2/endpoint/analysistaskresultget"
                     ]
                   },
                   {
@@ -179,15 +197,7 @@
                       "zh-Hant/api-reference/v2/endpoint/monitoraddressesadd",
                       "zh-Hant/api-reference/v2/endpoint/monitoraddressupdate",
                       "zh-Hant/api-reference/v2/endpoint/monitoraddressesdelete",
-                      "zh-Hant/api-reference/v2/endpoint/monitoralertslist",
-                      "zh-Hant/api-reference/monitor-errors"
-                    ]
-                  },
-                  {
-                    "group": "通用說明",
-                    "icon": "book-open",
-                    "pages": [
-                      "zh-Hant/api-reference/common-errors"
+                      "zh-Hant/api-reference/v2/endpoint/monitoralertslist"
                     ]
                   },
                   {
@@ -199,26 +209,22 @@
                     ]
                   },
                   {
-                    "group": "更新日誌",
+                    "group": "錯誤處理",
                     "pages": [
-                      "zh-Hant/updatelog/latest"
+                      "zh-Hant/api-reference/common-errors",
+                      "zh-Hant/api-reference/analysis-errors",
+                      "zh-Hant/api-reference/monitor-errors"
                     ]
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "version": "v1",
-            "tabs": [
+              },
               {
-                "tab": "API 參考",
+                "version": "v1",
                 "groups": [
                   {
                     "group": "開始使用",
                     "pages": [
-                      "zh-Hant/index",
-                      "zh-Hant/quickstart"
+                      "zh-Hant/guides/v1/overview"
                     ]
                   },
                   {
@@ -232,8 +238,7 @@
                       "zh-Hant/api-reference/v1/endpoint/riskchangealerts",
                       "zh-Hant/api-reference/v1/endpoint/monitorconfigget",
                       "zh-Hant/api-reference/v1/endpoint/monitorconfigset",
-                      "zh-Hant/api-reference/v1/endpoint/monitorconfigupdate",
-                      "zh-Hant/api-reference/monitor-errors"
+                      "zh-Hant/api-reference/v1/endpoint/monitorconfigupdate"
                     ]
                   },
                   {
@@ -242,14 +247,7 @@
                       "zh-Hant/api-reference/v1/endpoint/querycreate",
                       "zh-Hant/api-reference/v1/endpoint/queryhistories",
                       "zh-Hant/api-reference/v1/endpoint/queryresult",
-                      "zh-Hant/api-reference/v1/endpoint/querystatus",
-                      "zh-Hant/api-reference/analysis-errors"
-                    ]
-                  },
-                  {
-                    "group": "通用說明",
-                    "pages": [
-                      "zh-Hant/api-reference/common-errors"
+                      "zh-Hant/api-reference/v1/endpoint/querystatus"
                     ]
                   },
                   {
@@ -259,28 +257,55 @@
                       "zh-Hant/api-reference/v1/webhooks/risk-change",
                       "zh-Hant/api-reference/v1/webhooks/known-risk"
                     ]
+                  },
+                  {
+                    "group": "錯誤處理",
+                    "pages": [
+                      "zh-Hant/api-reference/common-errors",
+                      "zh-Hant/api-reference/analysis-errors",
+                      "zh-Hant/api-reference/monitor-errors"
+                    ]
                   }
                 ]
               }
+            ]
+          },
+          {
+            "tab": "更新日誌",
+            "pages": [
+              "zh-Hant/updatelog/overview"
             ]
           }
         ]
       },
       {
         "language": "en",
-        "versions": [
+        "tabs": [
           {
-            "version": "v2",
-            "default": true,
-            "tabs": [
+            "tab": "Introduction",
+            "pages": [
+              "en/index"
+            ]
+          },
+          {
+            "tab": "Developer docs",
+            "versions": [
               {
-                "tab": "API Reference",
+                "version": "v2",
+                "default": true,
                 "groups": [
                   {
                     "group": "Get started",
                     "pages": [
-                      "en/index",
+                      "en/guides/v2/overview",
                       "en/quickstart"
+                    ]
+                  },
+                  {
+                    "group": "Integration guides",
+                    "pages": [
+                      "en/guides/v2/analysis",
+                      "en/guides/v2/monitoring"
                     ]
                   },
                   {
@@ -290,8 +315,7 @@
                       "en/api-reference/v2/endpoint/analysistasklist",
                       "en/api-reference/v2/endpoint/analysistaskcreate",
                       "en/api-reference/v2/endpoint/analysistaskstatusget",
-                      "en/api-reference/v2/endpoint/analysistaskresultget",
-                      "en/api-reference/analysis-errors"
+                      "en/api-reference/v2/endpoint/analysistaskresultget"
                     ]
                   },
                   {
@@ -302,15 +326,7 @@
                       "en/api-reference/v2/endpoint/monitoraddressesadd",
                       "en/api-reference/v2/endpoint/monitoraddressupdate",
                       "en/api-reference/v2/endpoint/monitoraddressesdelete",
-                      "en/api-reference/v2/endpoint/monitoralertslist",
-                      "en/api-reference/monitor-errors"
-                    ]
-                  },
-                  {
-                    "group": "General Information",
-                    "icon": "book-open",
-                    "pages": [
-                      "en/api-reference/common-errors"
+                      "en/api-reference/v2/endpoint/monitoralertslist"
                     ]
                   },
                   {
@@ -323,26 +339,22 @@
                     ]
                   },
                   {
-                    "group": "Changelog",
+                    "group": "Error handling",
                     "pages": [
-                      "en/updatelog/latest"
+                      "en/api-reference/common-errors",
+                      "en/api-reference/analysis-errors",
+                      "en/api-reference/monitor-errors"
                     ]
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "version": "v1",
-            "tabs": [
+              },
               {
-                "tab": "API Reference",
+                "version": "v1",
                 "groups": [
                   {
                     "group": "Get started",
                     "pages": [
-                      "en/index",
-                      "en/quickstart"
+                      "en/guides/v1/overview"
                     ]
                   },
                   {
@@ -356,8 +368,7 @@
                       "en/api-reference/v1/endpoint/riskchangealerts",
                       "en/api-reference/v1/endpoint/monitorconfigget",
                       "en/api-reference/v1/endpoint/monitorconfigset",
-                      "en/api-reference/v1/endpoint/monitorconfigupdate",
-                      "en/api-reference/monitor-errors"
+                      "en/api-reference/v1/endpoint/monitorconfigupdate"
                     ]
                   },
                   {
@@ -366,14 +377,7 @@
                       "en/api-reference/v1/endpoint/querycreate",
                       "en/api-reference/v1/endpoint/queryhistories",
                       "en/api-reference/v1/endpoint/queryresult",
-                      "en/api-reference/v1/endpoint/querystatus",
-                      "en/api-reference/analysis-errors"
-                    ]
-                  },
-                  {
-                    "group": "General Information",
-                    "pages": [
-                      "en/api-reference/common-errors"
+                      "en/api-reference/v1/endpoint/querystatus"
                     ]
                   },
                   {
@@ -383,9 +387,23 @@
                       "en/api-reference/v1/webhooks/risk-change",
                       "en/api-reference/v1/webhooks/known-risk"
                     ]
+                  },
+                  {
+                    "group": "Error handling",
+                    "pages": [
+                      "en/api-reference/common-errors",
+                      "en/api-reference/analysis-errors",
+                      "en/api-reference/monitor-errors"
+                    ]
                   }
                 ]
               }
+            ]
+          },
+          {
+            "tab": "Changelog",
+            "pages": [
+              "en/updatelog/overview"
             ]
           }
         ]

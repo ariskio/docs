@@ -5,38 +5,20 @@ description: "專業的鏈上風險資金識別 AML 風控平臺"
 
 Arisk 協助您識別鏈上風險資金，透過地址分析、資金流向查詢和監控告警，為 AML 風控業務提供資料支援。
 
-<Card title="快速開始（V2）" icon="rocket" href="/zh-Hant/quickstart">
-  使用 API Key 建立分析任務、查詢狀態並取得結果。
-</Card>
-
-## 依任務開始
-
 <Columns cols={2}>
-<Card title="建立分析任務" icon="magnifying-glass" href="/zh-Hant/api-reference/v2/endpoint/analysistaskcreate">
-  提交地址，選擇需要的分析指標。
+<Card title="快速開始（V2）" href="/zh-Hant/quickstart">
+執行一次 V2 分析任務。
 </Card>
-<Card title="查看分析結果" icon="chart-line" href="/zh-Hant/api-reference/v2/endpoint/analysistaskresultget">
-  讀取地址概覽、風險類型統計和資金流向。
+<Card title="分析任務接入" href="/zh-Hant/guides/v2/analysis">
+瞭解分析狀態與結果讀取。
 </Card>
-<Card title="新增監控地址" icon="shield-check" href="/zh-Hant/api-reference/v2/endpoint/monitoraddressesadd">
-  批次新增需要持續監控的地址。
+<Card title="地址監控接入" href="/zh-Hant/guides/v2/monitoring">
+新增監控、接收事件並管理地址。
 </Card>
-<Card title="查詢監控告警" icon="bell" href="/zh-Hant/api-reference/v2/endpoint/monitoralertslist">
-  取得監控地址的告警記錄。
+<Card title="V1 文件" href="/zh-Hant/guides/v1/overview">
+維護既有 V1 整合。
+</Card>
+<Card title="更新日誌" href="/zh-Hant/updatelog/overview">
+按日期查看產品發布記錄。
 </Card>
 </Columns>
-
-## 鏈與代幣參數
-
-V2 分析任務支援的 `chain` 值為 `ethereum`、`bsc`、`tron`，`token` 值為 `usdt`。請求時使用這些小寫識別值。
-
-## 繼續整合
-
-<Card title="接收 Webhook" icon="bell" href="/zh-Hant/api-reference/v2/webhooks/overview">
-  瞭解推送結構、簽章驗證和訊息處理。
-</Card>
-
-
-## API 版本
-
-本指南使用 V2。維護 V1 整合時，請在版本選擇器中切換至 V1，並使用對應的介面參考。

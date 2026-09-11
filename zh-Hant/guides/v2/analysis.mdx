@@ -1,0 +1,42 @@
+---
+title: "分析任務接入"
+description: "建立分析任務、處理狀態變化並取得結果。"
+---
+
+本指南適用於 V2。可執行的請求示例見[快速開始](/zh-Hant/quickstart)。
+
+## 1. 創建並保存任務
+
+呼叫[創建分析任務](/zh-Hant/api-reference/v2/endpoint/analysistaskcreate)，提供 `chain`、`token` 和 `address`。按需選擇 `metrics`；不傳或傳空陣列時返回全部支援的指標。
+
+保存響應中的 `task_id`，並將其與您的業務記錄關聯。查詢狀態與獲取結果均使用同一個任務 ID。
+
+## 2. 根據狀態推進
+
+呼叫[查詢任務狀態](/zh-Hant/api-reference/v2/endpoint/analysistaskstatusget)：
+
+| `status` | 下一步 |
+| --- | --- |
+| `0` 等待中 | 稍後再次查詢 |
+| `1` 處理中 | 繼續等待，避免重複創建相同任務 |
+| `2` 已完成 | 獲取分析結果 |
+| `3` 失敗 | 檢查 `message`，停止等待並定位原因 |
+
+為您的客戶端設置等待上限，避免無限輪詢。等待超出本地上限不代表任務已失敗，可保留任務 ID 後續查詢。
+
+## 3. 獲取並保存結果
+
+完成後呼叫[獲取分析結果](/zh-Hant/api-reference/v2/endpoint/analysistaskresultget)，讀取 `result`。按所選指標處理返回數據，不要假定只請求部分指標時仍包含所有數據。
+
+需要查找已有任務時，使用[分析任務列表](/zh-Hant/api-reference/v2/endpoint/analysistasklist)。
+
+## 4. 區分請求錯誤與任務失敗
+
+請求錯誤時檢查 `code`、`message`；任務狀態為 `3` 時檢查任務的失敗資訊。
+
+- 參數無效：核對地址、鏈、代幣和指標後再提交。
+- 未找到任務：核對任務 ID 和所使用的帳號憑據。
+- 未找到結果：先查詢任務狀態，確認已完成。
+- 不支援的鏈或代幣、禁止分析的交易所地址、沒有交易數據：根據錯誤修正輸入，避免原樣循環提交。
+
+完整含義見[分析錯誤碼](/zh-Hant/api-reference/analysis-errors)。

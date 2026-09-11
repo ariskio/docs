@@ -1,0 +1,42 @@
+---
+title: "分析任务接入"
+description: "创建分析任务、处理状态变化并获取结果。"
+---
+
+本指南适用于 V2。可运行的请求示例见[快速开始](/zh/quickstart)。
+
+## 1. 创建并保存任务
+
+调用[创建分析任务](/zh/api-reference/v2/endpoint/analysistaskcreate)，提供 `chain`、`token` 和 `address`。按需选择 `metrics`；不传或传空数组时返回全部支持的指标。
+
+保存响应中的 `task_id`，并将其与您的业务记录关联。查询状态与获取结果均使用同一个任务 ID。
+
+## 2. 根据状态推进
+
+调用[查询任务状态](/zh/api-reference/v2/endpoint/analysistaskstatusget)：
+
+| `status` | 下一步 |
+| --- | --- |
+| `0` 等待中 | 稍后再次查询 |
+| `1` 处理中 | 继续等待，避免重复创建相同任务 |
+| `2` 已完成 | 获取分析结果 |
+| `3` 失败 | 检查 `message`，停止等待并定位原因 |
+
+为您的客户端设置等待上限，避免无限轮询。等待超出本地上限不代表任务已失败，可保留任务 ID 后续查询。
+
+## 3. 获取并保存结果
+
+完成后调用[获取分析结果](/zh/api-reference/v2/endpoint/analysistaskresultget)，读取 `result`。按所选指标处理返回数据，不要假定只请求部分指标时仍包含所有数据。
+
+需要查找已有任务时，使用[分析任务列表](/zh/api-reference/v2/endpoint/analysistasklist)。
+
+## 4. 区分请求错误与任务失败
+
+请求错误时检查 `code`、`message`；任务状态为 `3` 时检查任务的失败信息。
+
+- 参数无效：核对地址、链、代币和指标后再提交。
+- 未找到任务：核对任务 ID 和所使用的账号凭据。
+- 未找到结果：先查询任务状态，确认已完成。
+- 不支持的链或代币、禁止分析的交易所地址、没有交易数据：根据错误修正输入，避免原样循环提交。
+
+完整含义见[分析错误码](/zh/api-reference/analysis-errors)。
